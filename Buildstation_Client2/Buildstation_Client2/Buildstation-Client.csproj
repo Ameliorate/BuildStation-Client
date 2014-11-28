@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\Mobile.cs" />
     <Compile Include="Class\PhysicalObject.cs" />
     <Compile Include="Class\Variables.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
