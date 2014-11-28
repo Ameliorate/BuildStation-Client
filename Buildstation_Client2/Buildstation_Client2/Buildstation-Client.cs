@@ -47,8 +47,25 @@ namespace Buildstation_Client
             base.Initialize();
         }
 
-        
-        
+
+
+        static public Texture2D Space0;      // Creating all the varibles for the space tiles.
+        static public Texture2D Space1;
+        static public Texture2D Space2;
+        static public Texture2D Space3;
+        static public Texture2D Space4;
+        static public Texture2D Space5;
+        static public Texture2D Space6;
+        static public Texture2D Space7;
+        static public Texture2D Space8;
+        static public Texture2D Space9;
+        static public Texture2D Space10;
+        static public Texture2D Space11;
+        static public Texture2D Space12;
+        static public Texture2D Space13;
+        static public Texture2D Space14;
+        static public Texture2D Space15;
+
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -58,7 +75,25 @@ namespace Buildstation_Client
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
+            Space0 = Content.Load<Texture2D>("Objects/Turf/Space/0");             // Loading all the space tiles
+            Space1 = Content.Load<Texture2D>("Objects/Turf/Space/1");
+            Space2 = Content.Load<Texture2D>("Objects/Turf/Space/2");
+            Space3 = Content.Load<Texture2D>("Objects/Turf/Space/3");
+            Space4 = Content.Load<Texture2D>("Objects/Turf/Space/4");
+            Space5 = Content.Load<Texture2D>("Objects/Turf/Space/5");
+            Space6 = Content.Load<Texture2D>("Objects/Turf/Space/6");
+            Space7 = Content.Load<Texture2D>("Objects/Turf/Space/7");
+            Space8 = Content.Load<Texture2D>("Objects/Turf/Space/8");
+            Space9 = Content.Load<Texture2D>("Objects/Turf/Space/9");
+            Space10 = Content.Load<Texture2D>("Objects/Turf/Space/10");
+            Space11 = Content.Load<Texture2D>("Objects/Turf/Space/11");
+            Space12 = Content.Load<Texture2D>("Objects/Turf/Space/12");
+            Space13 = Content.Load<Texture2D>("Objects/Turf/Space/13");
+            Space14 = Content.Load<Texture2D>("Objects/Turf/Space/14");
+            Space15 = Content.Load<Texture2D>("Objects/Turf/Space/15");
+
+
+
             // TODO: use this.Content to load your game content here
         }
 
