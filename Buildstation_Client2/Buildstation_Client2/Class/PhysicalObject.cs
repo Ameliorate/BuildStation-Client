@@ -50,16 +50,26 @@ namespace Buildstation_Client2.Class
             thread.Start();
         }
 
+        public void SetName(string ObjectType)
+        {
+            // TODO: Figure out how to automatically generate object names.
+        }
+
+
+
+
+
         private void MapUpdateThread()
         {
             while (true)
             {
                 Variables.Map[XPos, YPos, ZPos] = ObjectName; // Sets the possittion of the object to the intended coordanites.
 
-                if (RanBefore == true)  // Deletes the old reference to the object on the map since it just moved.
+                if (RanBefore == true && XPos != OldXPos && YPos != OldYPos && ZPos != OldZPos)  // Deletes the old reference to the object on the map since it just moved.
                 {
                     Variables.Map[OldXPos, OldYPos, OldZPos] = String.Empty;
                 }
+
                 RanBefore = true;
             }
         }

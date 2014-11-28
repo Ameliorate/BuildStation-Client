@@ -14,12 +14,12 @@ namespace Buildstation_Client
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Buildstation_Client : Microsoft.Xna.Framework.Game
+    public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        public Buildstation_Client()
+        public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
