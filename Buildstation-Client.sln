@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C# Express 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Buildstation-Client", "Buildstation_Client2\Buildstation_Client2\Buildstation-Client.csproj", "{EEE3DE33-6BFE-47E0-945F-2D9680624787}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Buildstation-ClientContent", "Buildstation_Client2\Buildstation_Client2Content\Buildstation-ClientContent.contentproj", "{0DBDADCD-3435-43C7-8B06-BABE2C6AF2D5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EEE3DE33-6BFE-47E0-945F-2D9680624787}.Debug|x86.ActiveCfg = Debug|x86
+		{EEE3DE33-6BFE-47E0-945F-2D9680624787}.Debug|x86.Build.0 = Debug|x86
+		{EEE3DE33-6BFE-47E0-945F-2D9680624787}.Release|x86.ActiveCfg = Release|x86
+		{EEE3DE33-6BFE-47E0-945F-2D9680624787}.Release|x86.Build.0 = Release|x86
+		{0DBDADCD-3435-43C7-8B06-BABE2C6AF2D5}.Debug|x86.ActiveCfg = Debug|x86
+		{0DBDADCD-3435-43C7-8B06-BABE2C6AF2D5}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
