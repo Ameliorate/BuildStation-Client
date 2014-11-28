@@ -53,6 +53,7 @@ namespace Buildstation_Client2.Class
         public void SetName(string ObjectType)
         {
             // TODO: Figure out how to automatically generate object names.
+            // Preferably this should name things in the order of A, B, C, D ... Z, AA, AB, and so on. Posibly also using numbers to expand the combanations.
         }
 
 
