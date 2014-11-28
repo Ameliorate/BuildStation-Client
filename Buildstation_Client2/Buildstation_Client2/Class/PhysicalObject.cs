@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System.Threading;
 
 
 namespace Buildstation_Client2.Class
@@ -33,15 +34,35 @@ namespace Buildstation_Client2.Class
         // What the object looks like.
         protected Texture2D Sprite; // The cerrent apearance of the thing.
         protected int SpriteSizeX = 48; // How large your sprite is on the X plane. Normally 48 pixels.
-        protected int SpriteSizeY = 48; // How large your sprite is on the Y plane. Normally 48 pixels.
+        protected int SpriteSizeY = 48; 
 
-        
+        // Varibles used for the map updating code.
+        private int OldXPos;  
+        private int OldYPos;
+        private int OldZPos;
+        private bool RanBefore = false; 
 
         // Actually starting logic.
-        //Map[XPos, YPos, ZPos] = ObjectName; // Is supposed to set the location of the object to the apropiate place on the map. But it seems to hate me.
 
+        public void Initalise()
+        {
+            Thread thread = new Thread(MapUpdateThread);
+            thread.Start();
+        }
 
+        private void MapUpdateThread()
+        {
+            while (true)
+            {
+                Variables.Map[XPos, YPos, ZPos] = ObjectName; // Sets the possittion of the object to the intended coordanites.
 
+                if (RanBefore == true)  // Deletes the old reference to the object on the map since it just moved.
+                {
+                    Variables.Map[OldXPos, OldYPos, OldZPos] = String.Empty;
+                }
+                RanBefore = true;
+            }
+        }
         
 
 
