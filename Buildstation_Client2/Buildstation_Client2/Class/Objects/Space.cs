@@ -18,10 +18,23 @@ namespace Buildstation_Client2.Class.Objects
         private int NumberOfIcons = 16;
 
 
+        public Space(int X, int Y) 
+        {
+            XPos = X;
+            YPos = Y;
+        }
 
+        public Space(int X, int Y, int Z)
+        {
+            XPos = X;
+            YPos = Y;
+            ZPos = Z;
+        }
 
         public void Initalise()
         {
+            InitaliseTurf();  // Does things relating to turfs. Like makes you able to walk on them and see through them.
+
             Random Random = new Random();
             IconNumber = Random.Next(NumberOfIcons);
             SetName("Space");    // Does nothing yet, but will probably work later when I figure out setname.

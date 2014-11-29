@@ -66,6 +66,9 @@ namespace Buildstation_Client
         static public Texture2D Space14;
         static public Texture2D Space15;
 
+        static public Texture2D Wall;
+
+
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -92,6 +95,7 @@ namespace Buildstation_Client
             Space14 = Content.Load<Texture2D>("Objects/Turf/Space/14");
             Space15 = Content.Load<Texture2D>("Objects/Turf/Space/15");
 
+            Wall = Content.Load<Texture2D>("Objects/Wall");
 
 
             // TODO: use this.Content to load your game content here

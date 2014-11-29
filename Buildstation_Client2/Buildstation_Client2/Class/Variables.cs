@@ -9,8 +9,7 @@ namespace Buildstation_Client2.Class
     {
         // This class contains public varibles ment to be used in many places.
 
-        public static string[, ,] Map = new string[15, 15, 64]; // The map. The contents of the string indacate what object, and is used to refer to a dictionary below witch contains data about the object. Formated [x] [y] [z] where z is how high in the stack or pile of objects the thing is. Preferably having 64 objects on one tile sould have the tile act as if it had an inpassible object on it. After all, it would be a very large pile of stuff.
-
-        // TODO: Figure out a better way to store data about an object than a dictionary. If it is even needed that is.
+        public static string[, ,] Map = new string[15, 15, 64]; // The map. Mostly is used by other objects to see what is under them and to interface with those objects. X and Y are self explanatory, Z is the height of the objects in a pile of objects. 0 is normally the floor.
+        // If there are 64 objects on the floor, preferably the tile should be impassible.
     }
 }

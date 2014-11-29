@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\Mobile.cs" />
+    <Compile Include="Class\Objects\ObjectTemplate.cs" />
     <Compile Include="Class\Objects\Space.cs" />
     <Compile Include="Class\PhysicalObject.cs" />
     <Compile Include="Class\Turf.cs" />

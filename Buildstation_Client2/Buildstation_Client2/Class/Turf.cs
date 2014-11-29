@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Buildstation_Client2.Class
 {
-    class Turf : PhysicalObject
+    abstract class Turf : PhysicalObject
     {
 
         protected void InitaliseTurf()

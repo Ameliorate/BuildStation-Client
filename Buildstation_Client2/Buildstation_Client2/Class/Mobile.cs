@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Buildstation_Client2.Class
 {
-    class Mobile : PhysicalObject
+    abstract class Mobile : PhysicalObject
     {
         protected void MoveUp() // Moves the player 1 tile up every time it's called.
         {
