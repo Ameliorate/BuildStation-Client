@@ -39,8 +39,6 @@ namespace Buildstation_Client
             graphics.PreferredBackBufferHeight = 720;
             graphics.ApplyChanges();
 
-            
-
 
 
 
@@ -50,7 +48,7 @@ namespace Buildstation_Client
 
 
         static public Texture2D Space0;      // Creating all the varibles for the space tiles.
-        static public Texture2D Space1;
+        static public Texture2D Space1;      // Perhaps I could make these all a dictionary?
         static public Texture2D Space2;
         static public Texture2D Space3;
         static public Texture2D Space4;

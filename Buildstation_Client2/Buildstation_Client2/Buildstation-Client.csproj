@@ -111,6 +111,7 @@
     <Compile Include="Class\NameTools.cs" />
     <Compile Include="Class\Objects\ObjectTemplate.cs" />
     <Compile Include="Class\Objects\Space.cs" />
+    <Compile Include="Class\ObjectTools.cs" />
     <Compile Include="Class\PhysicalObject.cs" />
     <Compile Include="Class\Turf.cs" />
     <Compile Include="Class\Variables.cs" />
