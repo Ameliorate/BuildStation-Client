@@ -18,27 +18,29 @@ namespace Buildstation_Client2.Class.Objects
         private int NumberOfIcons = 16;
 
 
-        public Space(int X, int Y) 
+        public Space(string ObjectName, int X, int Y) 
         {
             XPos = X;
             YPos = Y;
+            ObjectName = this.ObjectName;
         }
 
-        public Space(int X, int Y, int Z)
+        public Space(string ObjectName, int X, int Y, int Z)
         {
             XPos = X;
             YPos = Y;
             ZPos = Z;
+            ObjectName = this.ObjectName;
         }
 
         public void Initalise()
         {
             InitaliseTurf();  // Does things relating to turfs. Like makes you able to walk on them and see through them.
 
+            
             Random Random = new Random();
-            IconNumber = Random.Next(NumberOfIcons);
-            SetName("Space");    // Does nothing yet, but will probably work later when I figure out setname.
-            SetSpriteRandom();
+            IconNumber = Random.Next(NumberOfIcons);  // Choses what icon is used for this tile.
+            SetSpriteRandom();                      // Sets the sprite to that icon.
             RotationInDegrees = Random.Next(3) * 90; // Creates 4 varations of each sprite by rotating them, reducing common patterns.
 
         }

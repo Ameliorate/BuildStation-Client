@@ -29,7 +29,8 @@ namespace Buildstation_Client2.Class
         protected int YPos; // The Y possition on a grid.
         protected int ZPos;
         protected string ObjectName; // The name of the object. An example would be SpaceX, FloorAB, or WallHFDHYRFDGTRHTG.
-
+        protected bool DoesMove; // Does it move? Affects preformance.
+        protected string ObjectType; // What is the type of the object? EX: Space, Wall, Floor.
 
         // What the object looks like. Affects things durring rendertime.
         static public Texture2D Sprite; // The cerrent apearance of the thing. You'll have to assighn an existing texture2d to this.
@@ -62,11 +63,6 @@ namespace Buildstation_Client2.Class
             thread.Start();
         }
 
-        protected void SetName(string ObjectType)
-        {
-            // TODO: Figure out how to automatically generate object names.
-            // Preferably this should name things in the order of A, B, C, D ... Z, AA, AB, and so on. Posibly also using numbers to expand the combanations.
-        }
 
         public bool GetPassableStatus()
         {
@@ -92,16 +88,19 @@ namespace Buildstation_Client2.Class
 
         private void MapUpdateThread()
         {
-            while (ObjectName != String.Empty)
+            while (true) 
             {
-                Variables.Map[XPos, YPos, ZPos] = ObjectName; // Sets the possittion of the object to the intended coordanites.
-
-                if (RanBefore == true && XPos != OldXPos && YPos != OldYPos && ZPos != OldZPos)  // Deletes the old reference to the object on the map since it just moved.
+                while (ObjectName != String.Empty)
                 {
-                    Variables.Map[OldXPos, OldYPos, OldZPos] = String.Empty;
-                }
+                    Variables.Map[XPos, YPos, ZPos] = ObjectName; // Sets the possition of the object to the intended coordanites.
 
-                RanBefore = true;
+                    if (RanBefore == true && XPos != OldXPos && YPos != OldYPos && ZPos != OldZPos)  // Deletes the old reference to the object on the map since it just moved.
+                    {
+                        Variables.Map[OldXPos, OldYPos, OldZPos] = String.Empty;
+                    }
+
+                    RanBefore = true;
+                }
             }
         }
         

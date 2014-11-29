@@ -25,6 +25,13 @@ namespace Buildstation_Client
             Content.RootDirectory = "Content";
         }
 
+
+        int XSetting = 0;
+        int YSetting = 0;
+        string CerrentName;
+        Buildstation_Client2.Class.NameTools Name = new Buildstation_Client2.Class.NameTools("Space");
+        int GenerateingTile;
+
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -38,6 +45,24 @@ namespace Buildstation_Client
             graphics.PreferredBackBufferWidth = 720;        // Sets window size to 720*720. This allows for 15 tiles on a screen if each tile is 48*48.
             graphics.PreferredBackBufferHeight = 720;
             graphics.ApplyChanges();
+            
+
+
+            while (GenerateingTile < 14)  // Yes, I know this doesn't fallow my object spawning class, but I cant figure out how to to make a class into a type.
+            {   // Basically this creates a space tile at every coordnite.
+                CerrentName = Name.GenerateName();
+                Buildstation_Client2.Class.Variables.PhysicalObjects.Add(GenerateingTile, new Buildstation_Client2.Class.Objects.Space(CerrentName, XSetting, YSetting)); 
+                XSetting++;
+                YSetting++;
+                GenerateingTile++;
+            }
+
+
+
+
+
+
+
 
 
 
