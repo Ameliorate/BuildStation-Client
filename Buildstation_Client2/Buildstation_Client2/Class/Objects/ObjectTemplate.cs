@@ -35,7 +35,7 @@ namespace Buildstation_Client2.Class.Objects
             ObjectType = "ObjectTemplate"; // The type of the object. Basically what it would normally be called.
 
 
-            Sprite = Buildstation_Client.Game1.Wall; // Sets the sprite to the content of the wall texture2d. You'd need to add that in the main game class somewhere under the LoadContent method. An example of what I added is below.
+            Sprite = Buildstation_Client2.Game1.Wall; // Sets the sprite to the content of the wall texture2d. You'd need to add that in the main game class somewhere under the LoadContent method. An example of what I added is below.
             
             /*
              * Wall = Content.Load<Texture2D>("Objects/Wall");

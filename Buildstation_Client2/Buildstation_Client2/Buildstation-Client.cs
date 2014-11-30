@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-namespace Buildstation_Client
+namespace Buildstation_Client2
 {
     /// <summary>
     /// This is the main type for your game
@@ -31,6 +31,7 @@ namespace Buildstation_Client
         string CerrentName;
         Buildstation_Client2.Class.NameTools Name = new Buildstation_Client2.Class.NameTools("Space");
         int GenerateingTile;
+        public static Dictionary<string, dynamic> PhysicalObjects = new Dictionary<string, dynamic>();
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -51,7 +52,7 @@ namespace Buildstation_Client
             while (GenerateingTile < 14)  // Yes, I know this doesn't fallow my object spawning class, but I cant figure out how to to make a class into a type.
             {   // Basically this creates a space tile at every coordnite.
                 CerrentName = Name.GenerateName();
-                Buildstation_Client2.Class.Variables.PhysicalObjects.Add(GenerateingTile, new Buildstation_Client2.Class.Objects.Space(CerrentName, XSetting, YSetting)); 
+                PhysicalObjects.Add(CerrentName, new Buildstation_Client2.Class.Objects.Space(CerrentName, XSetting, YSetting)); 
                 XSetting++;
                 YSetting++;
                 GenerateingTile++;
@@ -149,6 +150,15 @@ namespace Buildstation_Client
             base.Update(gameTime);
         }
 
+        private bool Rendering;
+        private int XRendering = 0;
+        private int YRendering = 0;
+        private int ZRendering = 0;
+        private int XRenderingPixel;
+        private int YRenderingPixel;
+        private string RenderingObjectName;
+        private Texture2D RenderingObjectBuffer;
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -158,9 +168,37 @@ namespace Buildstation_Client
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            
+            spriteBatch.Begin();
+            while (Rendering)
+            {
+                RenderingObjectName = Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering];     // Gets what object it is drawing using the object map.
+                RenderingObjectBuffer = PhysicalObjects[RenderingObjectName].GetSprite();      // Gets the sprite of that object.
+                XRenderingPixel = XRendering * 48;      // Gets what pixel to draw the tile at.
+                YRenderingPixel = YRendering * 48;      // Same here.
 
+                spriteBatch.Draw(RenderingObjectBuffer, new Rectangle(XRenderingPixel, YRenderingPixel, 48, 48), Color.White);      // Draws the tile at the intended place.
+                ZRendering++;       // Goes on the the next tile on the Z plane.
+                if (Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering] == string.Empty)       // If there is no tile there, move on to the next one.
+                {
+                    ZRendering = 0;
+                    XRendering++;       // Moves on to the next tile on the X plane.
 
+                    if (Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering] == string.Empty)       // If ther is no tile, move on.
+                    {
+                        YRendering++;       // Next tile on the Y plane.
+                        XRendering = 0;
+                        if (Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering] == string.Empty)       // No tile? Move on. Or not, Your actually done.
+                        {
+                            YRendering = 0;
+                            XRendering = 0;     // Not sure if these are nesasary, but wouldnt make a differance anyway.
+                            ZRendering = 0;
+                            Rendering = false;      // Stops the rendering loop, since it is finished.
+                        }
+                    }
+                }
+            }
+            spriteBatch.End();
+            Rendering = true;
 
             base.Draw(gameTime);
         }

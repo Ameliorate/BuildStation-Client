@@ -1,6 +1,6 @@
 using System;
 
-namespace Buildstation_Client
+namespace Buildstation_Client2
 {
 #if WINDOWS || XBOX
     static class Program

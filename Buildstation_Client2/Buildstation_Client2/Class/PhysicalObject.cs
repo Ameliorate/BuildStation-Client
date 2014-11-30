@@ -84,6 +84,25 @@ namespace Buildstation_Client2.Class
             return Sprite;
         }
 
+        public int GetRotation()
+        {
+            return RotationInDegrees;
+        }
+
+        public int GetXPos()
+        {
+            return XPos;
+        }
+
+        public int GetYPos()
+        {
+            return YPos;
+        }
+
+        public int GetZPos()
+        {
+            return ZPos;
+        }
 
 
         private void MapUpdateThread()
@@ -100,6 +119,11 @@ namespace Buildstation_Client2.Class
                     }
 
                     RanBefore = true;
+                }
+
+                if (RanBefore == true && DoesMove == false)  // If it has updated it's possition once before than it breaks out of the loop and stops the thread.
+                {
+                    break;
                 }
             }
         }

@@ -18,7 +18,7 @@ namespace Buildstation_Client2.Class
         // Every single possible reasonable charactor on your keyboard. Could include lowercases for almost twice as many, but thats getting unreasonable. Also too much efort to type.
 
 
-        public static Dictionary<int, Object> PhysicalObjects = new Dictionary<int, Object>(); // A dictionary of objects. Every single object in the game. Probably not optimal, but I cant find another way.
+        public static Dictionary<string, Object> PhysicalObjects = new Dictionary<string, Object>(); // A dictionary of objects. Every single object in the game. Probably not optimal, but I cant find another way.
 
     }
 }
