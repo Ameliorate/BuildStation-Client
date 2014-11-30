@@ -113,18 +113,25 @@ namespace Buildstation_Client2.Class
                 {
                     Variables.Map[XPos, YPos, ZPos] = ObjectName; // Sets the possition of the object to the intended coordanites.
 
-                    if (RanBefore == true && XPos != OldXPos && YPos != OldYPos && ZPos != OldZPos)  // Deletes the old reference to the object on the map since it just moved.
+                    if (RanBefore == true)  // Deletes the old reference to the object on the map since it just moved.
                     {
-                        Variables.Map[OldXPos, OldYPos, OldZPos] = String.Empty;
+                        if (XPos != OldXPos || YPos != OldYPos || ZPos != OldZPos)
+                        {
+                            Variables.Map[OldXPos, OldYPos, OldZPos] = String.Empty;
+                        }
                     }
 
                     RanBefore = true;
+
+                    if (RanBefore == true && DoesMove == false)  // If it has updated it's possition once before than it breaks out of the loop and stops the thread.
+                    {
+                        break;
+                    }
+
+                    Thread.Sleep(500);
                 }
 
-                if (RanBefore == true && DoesMove == false)  // If it has updated it's possition once before than it breaks out of the loop and stops the thread.
-                {
-                    break;
-                }
+                
             }
         }
         

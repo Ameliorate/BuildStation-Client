@@ -35,14 +35,14 @@ namespace Buildstation_Client2.Class.Objects
 
         public void Initalise()
         {
-            InitaliseTurf();  // Does things relating to turfs. Like makes you able to walk on them and see through them.
 
-            
+
+            DoesMove = false;
             Random Random = new Random();
             IconNumber = Random.Next(NumberOfIcons);  // Choses what icon is used for this tile.
             SetSpriteRandom();                      // Sets the sprite to that icon.
             RotationInDegrees = Random.Next(3) * 90; // Creates 4 varations of each sprite by rotating them, reducing common patterns.
-
+            InitaliseTurf();  // Does things relating to turfs. Like makes you able to walk on them and see through them.
         }
 
 

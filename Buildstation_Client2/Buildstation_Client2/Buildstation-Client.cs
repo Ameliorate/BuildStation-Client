@@ -29,9 +29,10 @@ namespace Buildstation_Client2
         int XSetting = 0;
         int YSetting = 0;
         string CerrentName;
-        Buildstation_Client2.Class.NameTools Name = new Buildstation_Client2.Class.NameTools("Space");
-        int GenerateingTile;
-        public static Dictionary<string, dynamic> PhysicalObjects = new Dictionary<string, dynamic>();
+        Buildstation_Client2.Class.NameTools SpaceName = new Buildstation_Client2.Class.NameTools("Space");
+        public static Dictionary<string, dynamic> PhysicalObjects = new Dictionary<string, dynamic>();      // A dictionary of objects. Every single object in the game. Probably not optimal, but I cant find another way.
+        private bool FinishedGenerating = false;
+        private bool Generating;
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -46,27 +47,30 @@ namespace Buildstation_Client2
             graphics.PreferredBackBufferWidth = 720;        // Sets window size to 720*720. This allows for 15 tiles on a screen if each tile is 48*48.
             graphics.PreferredBackBufferHeight = 720;
             graphics.ApplyChanges();
-            
+
+            PhysicalObjects.Add("Foo", new Buildstation_Client2.Class.Objects.Space("Foo", 0, 0));
 
 
-            while (GenerateingTile < 14)  // Yes, I know this doesn't fallow my object spawning class, but I cant figure out how to to make a class into a type.
+            while (Generating)  // Yes, I know this doesn't fallow my object spawning class, but I cant figure out how to to make a class into a type.
             {   // Basically this creates a space tile at every coordnite.
-                CerrentName = Name.GenerateName();
-                PhysicalObjects.Add(CerrentName, new Buildstation_Client2.Class.Objects.Space(CerrentName, XSetting, YSetting)); 
+                CerrentName = SpaceName.GenerateName();
+                PhysicalObjects.Add(CerrentName, new Buildstation_Client2.Class.Objects.Space(CerrentName, XSetting, YSetting));
+                PhysicalObjects[CerrentName].Initalise();
                 XSetting++;
-                YSetting++;
-                GenerateingTile++;
+                if (XSetting == 3)
+                {
+                    YSetting++;
+                    XSetting = 0;
+                    if (YSetting == 3)
+                    {
+                        XSetting = 0;
+                        YSetting = 0;
+                        Generating = false;
+                    }
+                }
             }
 
-
-
-
-
-
-
-
-
-
+            FinishedGenerating = true;
 
             base.Initialize();
         }
@@ -169,34 +173,39 @@ namespace Buildstation_Client2
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            while (Rendering)
+
+            if (FinishedGenerating)
             {
-                RenderingObjectName = Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering];     // Gets what object it is drawing using the object map.
-                RenderingObjectBuffer = PhysicalObjects[RenderingObjectName].GetSprite();      // Gets the sprite of that object.
-                XRenderingPixel = XRendering * 48;      // Gets what pixel to draw the tile at.
-                YRenderingPixel = YRendering * 48;      // Same here.
-
-                spriteBatch.Draw(RenderingObjectBuffer, new Rectangle(XRenderingPixel, YRenderingPixel, 48, 48), Color.White);      // Draws the tile at the intended place.
-                ZRendering++;       // Goes on the the next tile on the Z plane.
-                if (Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering] == string.Empty)       // If there is no tile there, move on to the next one.
+                while (Rendering)
                 {
-                    ZRendering = 0;
-                    XRendering++;       // Moves on to the next tile on the X plane.
+                    RenderingObjectName = Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering];     // Gets what object it is drawing using the object map.
+                    RenderingObjectBuffer = PhysicalObjects[RenderingObjectName].GetSprite();      // Gets the sprite of that object.
+                    XRenderingPixel = XRendering * 48;      // Gets what pixel to draw the tile at.
+                    YRenderingPixel = YRendering * 48;      // Same here.
 
-                    if (Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering] == string.Empty)       // If ther is no tile, move on.
+                    spriteBatch.Draw(RenderingObjectBuffer, new Rectangle(XRenderingPixel, YRenderingPixel, 48, 48), Color.White);      // Draws the tile at the intended place.
+                    ZRendering++;       // Goes on the the next tile on the Z plane.
+                    if (Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering] == string.Empty)       // If there is no tile there, move on to the next one.
                     {
-                        YRendering++;       // Next tile on the Y plane.
-                        XRendering = 0;
-                        if (Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering] == string.Empty)       // No tile? Move on. Or not, Your actually done.
+                        ZRendering = 0;
+                        XRendering++;       // Moves on to the next tile on the X plane.
+
+                        if (Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering] == string.Empty)       // If ther is no tile, move on.
                         {
-                            YRendering = 0;
-                            XRendering = 0;     // Not sure if these are nesasary, but wouldnt make a differance anyway.
-                            ZRendering = 0;
-                            Rendering = false;      // Stops the rendering loop, since it is finished.
+                            YRendering++;       // Next tile on the Y plane.
+                            XRendering = 0;
+                            if (Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering] == string.Empty)       // No tile? Move on. Or not, Your actually done.
+                            {
+                                YRendering = 0;
+                                XRendering = 0;     // Not sure if these are nesasary, but wouldnt make a differance anyway.
+                                ZRendering = 0;
+                                Rendering = false;      // Stops the rendering loop, since it is finished.
+                            }
                         }
                     }
                 }
             }
+
             spriteBatch.End();
             Rendering = true;
 

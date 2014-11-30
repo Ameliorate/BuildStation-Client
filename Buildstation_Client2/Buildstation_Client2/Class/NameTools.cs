@@ -24,7 +24,7 @@ namespace Buildstation_Client2.Class
 
         public string GenerateName()
         {
-            CerrentName = ObjectType + Random.Next(10000000); // This method doesnt have any methiods of avoiding name collision, but to much work for such a small chance.
+            CerrentName = ObjectType + Random.Next(100000); // This method doesnt have any methiods of avoiding name collision, but to much work for such a small chance.
             CerrentNameNumber++;
             return CerrentName; // Yes, I know that doesnt actually do what I explained earlier, but at this point, I've been working on this for quite a while and I cant find a good solution.
         }

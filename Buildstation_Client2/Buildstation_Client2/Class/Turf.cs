@@ -7,7 +7,6 @@ namespace Buildstation_Client2.Class
 {
     abstract class Turf : PhysicalObject
     {
-
         protected void InitaliseTurf()
         {
             InitaliseBace();   // Initalises the bace class.
