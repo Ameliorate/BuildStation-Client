@@ -57,11 +57,11 @@ namespace Buildstation_Client2
                 PhysicalObjects.Add(CerrentName, new Buildstation_Client2.Class.Objects.Space(CerrentName, XSetting, YSetting));
                 PhysicalObjects[CerrentName].Initalise();
                 XSetting++;
-                if (XSetting == 3)
+                if (XSetting == 15)
                 {
                     YSetting++;
                     XSetting = 0;
-                    if (YSetting == 3)
+                    if (YSetting == 15)
                     {
                         XSetting = 0;
                         YSetting = 0;
@@ -162,6 +162,7 @@ namespace Buildstation_Client2
         private int YRenderingPixel;
         private string RenderingObjectName;
         private Texture2D RenderingObjectBuffer;
+        private string RenderingObjectState;
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -179,7 +180,7 @@ namespace Buildstation_Client2
                 while (Rendering)
                 {
                     RenderingObjectName = Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering];     // Gets what object it is drawing using the object map.
-                    RenderingObjectBuffer = PhysicalObjects[RenderingObjectName].GetSprite();      // Gets the sprite of that object.
+                    RenderingObjectState = PhysicalObjects[RenderingObjectName].GetSprite();      // Gets the sprite of that object.
                     XRenderingPixel = XRendering * 48;      // Gets what pixel to draw the tile at.
                     YRenderingPixel = YRendering * 48;      // Same here.
 

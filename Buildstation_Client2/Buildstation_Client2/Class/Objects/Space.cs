@@ -51,82 +51,82 @@ namespace Buildstation_Client2.Class.Objects
             // WARNING: Possibly ugly code ahead. Don't say I didn't warn you.
             if (IconNumber == 0)                                 // Basically, it sets the icon to a random icon of 16 posibilities.
             {
-                Sprite = Buildstation_Client2.Game1.Space0;
+                SpriteState = "Space0";
             }
 
             if (IconNumber == 1)
             {
-                Sprite = Buildstation_Client2.Game1.Space1;
+                SpriteState = "Space1";
             }
 
             if (IconNumber == 2)
             {
-                Sprite = Buildstation_Client2.Game1.Space2;
+                SpriteState = "Space2";
             }
 
             if (IconNumber == 3)
             {
-                Sprite = Buildstation_Client2.Game1.Space3;
+                SpriteState = "Space3";
             }
 
             if (IconNumber == 4)
             {
-                Sprite = Buildstation_Client2.Game1.Space4;
+                SpriteState = "Space4";
             }
 
             if (IconNumber == 5)
             {
-                Sprite = Buildstation_Client2.Game1.Space5;
+                SpriteState = "Space5";
             }
 
             if (IconNumber == 6)
             {
-                Sprite = Buildstation_Client2.Game1.Space6;
+                SpriteState = "Space6";
             }
 
             if (IconNumber == 7)
             {
-                Sprite = Buildstation_Client2.Game1.Space7;
+                SpriteState = "Space7";
             }
 
             if (IconNumber == 8)
             {
-                Sprite = Buildstation_Client2.Game1.Space8;
+                SpriteState = "Space8";
             }
 
             if (IconNumber == 9)
             {
-                Sprite = Buildstation_Client2.Game1.Space9;
+                SpriteState = "Space9";
             }
 
             if (IconNumber == 10)
             {
-                Sprite = Buildstation_Client2.Game1.Space10;
+                SpriteState = "Space10";
             }
 
             if (IconNumber == 11)
             {
-                Sprite = Buildstation_Client2.Game1.Space11;
+                SpriteState = "Space11";
             }
 
             if (IconNumber == 12)
             {
-                Sprite = Buildstation_Client2.Game1.Space12;
+                SpriteState = "Space12";
             }
 
             if (IconNumber == 13)
             {
-                Sprite = Buildstation_Client2.Game1.Space13;
+                SpriteState = "Space13";
             }
 
             if (IconNumber == 14)
             {
-                Sprite = Buildstation_Client2.Game1.Space14;
+                SpriteState = "Space14";
             }
 
             if (IconNumber == 15)
             {
-                Sprite = Buildstation_Client2.Game1.Space15;
+                SpriteState = "Space15";
             }
         }
     }

@@ -33,7 +33,7 @@ namespace Buildstation_Client2.Class
         protected string ObjectType; // What is the type of the object? EX: Space, Wall, Floor.
 
         // What the object looks like. Affects things durring rendertime.
-        static public Texture2D Sprite; // The cerrent apearance of the thing. You'll have to assighn an existing texture2d to this.
+        static public string SpriteState; // The cerrent apearance of the thing. You'll have to assighn an existing texture2d to this.
         protected int SpriteSizeX = 48; // How large your sprite is on the X plane. Normally 48 pixels.
         protected int SpriteSizeY = 48;
         protected int RotationInDegrees = 0; // How much should it be rotated? Normally 0.
@@ -79,9 +79,9 @@ namespace Buildstation_Client2.Class
             return IsTransparent;
         }
 
-        public Texture2D GetSprite()
+        public string GetSpriteState()
         {
-            return Sprite;
+            return SpriteState;
         }
 
         public int GetRotation()
