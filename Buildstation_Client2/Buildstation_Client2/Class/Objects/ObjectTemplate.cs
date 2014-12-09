@@ -26,7 +26,6 @@ namespace Buildstation_Client2.Class.Objects
 
         public void Initalise()
         {
-            InitaliseBace();    // InitaliseBase does a few things relating to rendering and updating position for you.
             IsPassable = false; // Can you walk over it?
             IsDragable = false; // Can you drag it or push it around?
             IsTransparent = false; // Can you see through it.
@@ -46,6 +45,10 @@ namespace Buildstation_Client2.Class.Objects
             /*
              * static public Texture2D Wall;
              */
+
+            InitaliseBace();    // InitaliseBase does a few things relating to rendering and updating position for you. Make sure this is last, as it does vairous things related to stuff you did earlier.
+
+
         }
     }
 }

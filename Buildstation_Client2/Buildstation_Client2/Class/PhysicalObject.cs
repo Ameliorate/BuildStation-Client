@@ -59,8 +59,15 @@ namespace Buildstation_Client2.Class
 
         protected void InitaliseBace()        // Preforms the nesasary actions to create the object.
         {
-            Thread thread = new Thread(MapUpdateThread);
-            thread.Start();
+            if (DoesMove == true)   // Vairous optimatasation things making objects faster (Probably, it does get rid of a whole thread)
+            {
+                Thread thread = new Thread(MapUpdateThread);
+                thread.Start();
+            }
+            else
+            {
+                Variables.Map[XPos, YPos, ZPos] = ObjectName;
+            }
         }
 
 
@@ -79,7 +86,7 @@ namespace Buildstation_Client2.Class
             return IsTransparent;
         }
 
-        public string GetSpriteState()
+        public static string GetSpriteState()
         {
             return SpriteState;
         }

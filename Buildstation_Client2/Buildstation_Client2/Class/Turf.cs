@@ -9,10 +9,11 @@ namespace Buildstation_Client2.Class
     {
         protected void InitaliseTurf()
         {
-            InitaliseBace();   // Initalises the bace class.
             IsDragable = false;  // Sets all the properties tipical of a floor.
             IsPassable = true;
             IsTransparent = true;
+
+            InitaliseBace();   // Initalises the bace class.
 
             // TODO: Set up nesasary code to simulate an atmosphere.
         }
