@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System.Threading;
 
 namespace Buildstation_Client2
 {
@@ -48,14 +49,15 @@ namespace Buildstation_Client2
             graphics.PreferredBackBufferHeight = 720;
             graphics.ApplyChanges();
 
-            PhysicalObjects.Add("Foo", new Buildstation_Client2.Class.Objects.Space("Foo", 0, 0));
+            // PhysicalObjects.Add("Foo", new Buildstation_Client2.Class.Objects.Space("Foo", 0, 0));
 
 
             while (Generating)  // Yes, I know this doesn't fallow my object spawning class, but I cant figure out how to to make a class into a type.
             {   // Basically this creates a space tile at every coordnite.
                 CerrentName = SpaceName.GenerateName();
-                Console.WriteLine("Generated space tile at X: " + XSetting.ToString() + " Y: " + YSetting.ToString());
+                // Console.WriteLine("Generated space tile at X: " + XSetting.ToString() + " Y: " + YSetting.ToString());   // Debug info about initalising.
                 PhysicalObjects.Add(CerrentName, new Buildstation_Client2.Class.Objects.Space(CerrentName, XSetting, YSetting));
+                // Console.WriteLine("Creating " + CerrentName + "!");
                 PhysicalObjects[CerrentName].Initalise();
                 XSetting++;
                 if (XSetting == 15)
@@ -139,6 +141,10 @@ namespace Buildstation_Client2
             // TODO: Unload any non ContentManager content here
         }
 
+
+        string IsAt000;
+
+
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -151,19 +157,27 @@ namespace Buildstation_Client2
                 this.Exit();
 
             // TODO: Add your update logic here
+            
+            // IsAt000 = Buildstation_Client2.Class.Variables.Map[0, 0, 0];
+            // Console.WriteLine(IsAt000 + " Is at 0,0,0!");
+
+
+
+
 
             base.Update(gameTime);
         }
 
         private bool Rendering;
-        private int XRendering = 0;
-        private int YRendering = 0;
-        private int ZRendering = 0;
+        private int XRendering;
+        private int YRendering;
+        private int ZRendering;
         private int XRenderingPixel;
         private int YRenderingPixel;
         private string RenderingObjectName;
         private Texture2D RenderingObjectBuffer;
         private string RenderingObjectState;
+        private bool IsCerrentTileEmpty;
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -177,45 +191,66 @@ namespace Buildstation_Client2
 
             // Renderer; Does not work.
 
-            spriteBatch.Begin();
+            spriteBatch.Begin();    // Starts the spritebatch rendering.
 
             if (FinishedGenerating)
             {
                 while (Rendering)
                 {
 
-                    if (XRendering > 15 || YRendering > 15)
+                    RenderingObjectName = Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering];     // Gets what object it is drawing using the object map.
+                    
+
+                    if (string.IsNullOrEmpty(RenderingObjectName))      // Error logging.
                     {
-                        RenderingObjectName = Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering];     // Gets what object it is drawing using the object map.
+                        Console.WriteLine("Something tried to foo! (0,0,0 must be a valid object in order for some things to work.)");
+                        Thread.Sleep(5000);
                     }
-                    // RenderingObjectState = PhysicalObjects[RenderingObjectName].GetSprite();      // Gets the sprite of that object. Also I hate this. Why doesn't it work?
+                    
+
+                    RenderingObjectState = PhysicalObjects[RenderingObjectName].GetSpriteState();      // Gets the sprite of that object. Also I hate this. Why doesn't it work? Aparently the issue is caused by the fact that tiles are not assighning themselves to the map array. Issue #10 for more info.
+                    //Console.WriteLine(RenderingObjectState);
+                    //Console.WriteLine(Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering]);
+                    //Console.WriteLine("Rendering: " + XRendering + ", " + YRendering + ", " + ZRendering + "!");
+
+
+
+
                     XRenderingPixel = XRendering * 48;      // Gets what pixel to draw the tile at.
                     YRenderingPixel = YRendering * 48;      // Same here.
 
                     // spriteBatch.Draw(RenderingObjectBuffer, new Rectangle(XRenderingPixel, YRenderingPixel, 48, 48), Color.White);      // Draws the tile at the intended place.
+
                     ZRendering++;       // Goes on the the next tile on the Z plane.
-                    if (XRendering > 15 || YRendering > 15)       // If there is no tile there, move on to the next one.
+
+                    IsCerrentTileEmpty = string.IsNullOrEmpty(Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering]);    // Checks if the tile is empty.
+
+                    if (IsCerrentTileEmpty == true) // If there is no tile there, move onto the next tile in the array.
                     {
-                        if (Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering] == string.Empty)
+
+                        ZRendering = 0;
+                        XRendering++;       // Moves on to the next tile on the X plane.
+                        IsCerrentTileEmpty = string.IsNullOrEmpty(Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering]);       // Is the tile empty now?
+
+                        if (IsCerrentTileEmpty == true)       // If there is no tile, move on.
                         {
+                            YRendering++;       // Next tile on the Y plane.
+                            XRendering = 0;
 
-                            ZRendering = 0;
-                            XRendering++;       // Moves on to the next tile on the X plane.
+                            IsCerrentTileEmpty = string.IsNullOrEmpty(Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering]);    // How about now?
 
-                            if (Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering] == string.Empty)       // If ther is no tile, move on.
+                            if (IsCerrentTileEmpty == true)       // No tile? Move on. Or not, Your actually done.
                             {
-                                YRendering++;       // Next tile on the Y plane.
-                                XRendering = 0;
-                                if (Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering] == string.Empty)       // No tile? Move on. Or not, Your actually done.
-                                {
-                                    YRendering = 0;
-                                    XRendering = 0;     // Not sure if these are nesasary, but wouldnt make a differance anyway.
-                                    ZRendering = 0;
-                                    Rendering = false;      // Stops the rendering loop, since it is finished.
-                                }
+                                YRendering = 0;
+                                XRendering = 0;     // Not sure if these are nesasary, but wouldnt make a differance anyway.
+                                ZRendering = 0;
+                                Rendering = false;      // Stops the rendering loop, since it is finished.
                             }
+
                         }
+
                     }
+                 
                 }
             }
 

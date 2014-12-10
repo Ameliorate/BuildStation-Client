@@ -29,8 +29,8 @@ namespace Buildstation_Client2.Class
         protected int YPos; // The Y possition on a grid.
         protected int ZPos;
         protected string ObjectName; // The name of the object. An example would be SpaceX, FloorAB, or WallHFDHYRFDGTRHTG.
+        protected string ObjectType; // The type of the object. Basically is what it is called. EX: Space, Wall, Computer
         protected bool DoesMove; // Does it move? Affects preformance.
-        protected string ObjectType; // What is the type of the object? EX: Space, Wall, Floor.
 
         // What the object looks like. Affects things durring rendertime.
         static public string SpriteState; // The cerrent apearance of the thing. You'll have to assighn an existing texture2d to this.
@@ -66,6 +66,7 @@ namespace Buildstation_Client2.Class
             }
             else
             {
+                // Console.WriteLine("Adding " + ObjectName + " To map array!");
                 Variables.Map[XPos, YPos, ZPos] = ObjectName;
             }
         }
@@ -86,7 +87,7 @@ namespace Buildstation_Client2.Class
             return IsTransparent;
         }
 
-        public static string GetSpriteState()
+        public string GetSpriteState()
         {
             return SpriteState;
         }

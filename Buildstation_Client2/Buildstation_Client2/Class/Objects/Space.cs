@@ -18,19 +18,19 @@ namespace Buildstation_Client2.Class.Objects
         private int NumberOfIcons = 16;
 
 
-        public Space(string ObjectName, int X, int Y) 
+        public Space(string _ObjectName, int X, int Y) 
         {
             XPos = X;
             YPos = Y;
-            ObjectName = this.ObjectName;
+            ObjectName = _ObjectName;
         }
 
-        public Space(string ObjectName, int X, int Y, int Z)
+        public Space(string _ObjectName, int X, int Y, int Z)
         {
             XPos = X;
             YPos = Y;
             ZPos = Z;
-            ObjectName = this.ObjectName;
+            ObjectName = _ObjectName;
         }
 
         public void Initalise()
