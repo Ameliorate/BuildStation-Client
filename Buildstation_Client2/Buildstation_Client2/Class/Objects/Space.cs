@@ -50,20 +50,31 @@ namespace Buildstation_Client2.Class.Objects
             GraphicsDevice = Content;
         }
 
+
+        private int Seed;
+
         /// <summary>
         /// Initalsies the tile, always run this, or this tile wont exist.
         /// </summary>
         public void Initalise()
         {
             DoesMove = false;
-            Random Random = new Random();
+            Seed = ObjectName.GetHashCode(); // This will get a random seed that isn't dependant on the system time as much since it is dependant on 1 centeral RNG (Right now. This will change.)
+            Random Random = new Random(Seed);
             IconNumber = Random.Next(NumberOfIcons);  // Choses what icon is used for this tile.
             SpriteState = "Space" + IconNumber.ToString();                      // Sets the sprite to that icon.
             ContentLoader.AddTexture("Space" + IconNumber, "Objects/Turf/Space/" + IconNumber, GraphicsDevice);
             RotationInDegrees = Random.Next(3) * 90; // Creates 4 varations of each sprite by rotating them, reducing common patterns.
-            
+
             InitaliseTurf();  // Does things relating to turfs. Like makes you able to walk on them and see through them.
         }
+
+        public override string GetSpriteState()
+        {
+            return "Space" + IconNumber;
+        }
+
+
     }
 }
 

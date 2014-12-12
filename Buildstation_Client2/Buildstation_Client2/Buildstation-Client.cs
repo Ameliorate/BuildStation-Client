@@ -44,6 +44,7 @@ namespace Buildstation_Client2
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            this.IsMouseVisible = true;     // Makes the mouse visable when your hovering over the game.
 
             graphics.PreferredBackBufferWidth = 720;        // Sets window size to 720*720. This allows for 15 tiles on a screen if each tile is 48*48.
             graphics.PreferredBackBufferHeight = 720;
@@ -133,7 +134,7 @@ namespace Buildstation_Client2
 
             base.Update(gameTime);
         }
-
+        Random Random = new Random();
         private bool Rendering;
         private int XRendering;
         private int YRendering;
@@ -144,7 +145,8 @@ namespace Buildstation_Client2
         private Texture2D RenderingObjectBuffer;
         private string RenderingObjectState;
         private bool IsCerrentTileEmpty;
-
+        private bool IsCerrentZLevelEmpty;
+        
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -166,31 +168,23 @@ namespace Buildstation_Client2
 
                     RenderingObjectName = Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering];     // Gets what object it is drawing using the object map.
                     
-
-                    if (string.IsNullOrEmpty(RenderingObjectName))      // Error logging.
-                    {
-                        Console.WriteLine("[ERROR] 0,0,0 must be a valid object in order for some things to work");
-                        Thread.Sleep(5000);
-                    }
+                    RenderingObjectState = PhysicalObjects[RenderingObjectName].GetSpriteState();      // Gets the spritestate of that object.
                     
+                    RenderingObjectBuffer = Buildstation_Client2.Class.ContentLoader.GetTexture(RenderingObjectState);
 
-                    RenderingObjectState = PhysicalObjects[RenderingObjectName].GetSpriteState();      // Gets the sprite of that object. Also I hate this. Why doesn't it work? Aparently the issue is caused by the fact that tiles are not assighning themselves to the map array. Issue #10 for more info.
-                    //Console.WriteLine(RenderingObjectState);
-                    //Console.WriteLine(Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering]);
-                    //Console.WriteLine("Rendering: " + XRendering + ", " + YRendering + ", " + ZRendering + "!");
-
-
-
+                    
 
                     XRenderingPixel = XRendering * 48;      // Gets what pixel to draw the tile at.
                     YRenderingPixel = YRendering * 48;      // Same here.
 
-                    // spriteBatch.Draw(RenderingObjectBuffer, new Rectangle(XRenderingPixel, YRenderingPixel, 48, 48), Color.White);      // Draws the tile at the intended place.
+                    spriteBatch.Draw(RenderingObjectBuffer, new Rectangle(XRenderingPixel, YRenderingPixel, 48, 48), Color.White);      // Draws the tile at the intended place.
 
                     ZRendering++;       // Goes on the the next tile on the Z plane.
 
                     IsCerrentTileEmpty = string.IsNullOrEmpty(Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering]);    // Checks if the tile is empty.
+                    IsCerrentZLevelEmpty = Buildstation_Client2.Class.Variables.IsAnythingInZPlane(ZRendering);     // Checks if there is anything in the cerrent plane.
 
+                    
                     if (IsCerrentTileEmpty == true) // If there is no tile there, move onto the next tile in the array.
                     {
 
@@ -211,6 +205,7 @@ namespace Buildstation_Client2
                                 XRendering = 0;     // Not sure if these are nesasary, but wouldnt make a differance anyway.
                                 ZRendering = 0;
                                 Rendering = false;      // Stops the rendering loop, since it is finished.
+                                
                             }
 
                         }
@@ -222,8 +217,9 @@ namespace Buildstation_Client2
 
             spriteBatch.End();
             Rendering = true;
-
+            // Thread.Sleep(10000);
             base.Draw(gameTime);
+            
         }
     }
 }

@@ -21,30 +21,29 @@ namespace Buildstation_Client2.Class
         /// <summary>
         /// Loads a texture into the texture dictionary.
         /// </summary>
-        /// <param name="Name">The name of the texture you want to add.</param>
+        /// <param name="SpriteState">The name of the texture you want to add.</param>
         /// <param name="TexturePath">The path of the texture you want to add.</param>
         /// <param name="Content">The contentmanager. This should be "this.Content" in the main game file, but if it isn't, You need to take "ContentManager Content" as a parameter.</param>
-        static public void AddTexture(string Name, string TexturePath, ContentManager Content)     
+        static public void AddTexture(string SpriteState, string TexturePath, ContentManager Content)     
         {
-            if (ContentTextures.ContainsKey(Name) == true)     // If it already has an entry under that name, stop right there and do nothing else. An error isn't needed since it is likely also assigning the same texture.
+            if (ContentTextures.ContainsKey(SpriteState) == true)     // If it already has an entry under that name, stop right there and do nothing else. An error isn't needed since it is likely also assigning the same texture.
             {
             }
             else
             {
-                ContentTextures.Add(Name, Content.Load<Texture2D>(TexturePath));        // Loads the texture.
+                Console.WriteLine("[Info] Added texture \"" + SpriteState + "\" at texture path \"" + TexturePath + "\"");     // Info messages.
+                ContentTextures.Add(SpriteState, Content.Load<Texture2D>(TexturePath));        // Loads the texture.
             }
         }
 
         /// <summary>
         ///  Gets the texture from the dictionary.
         /// </summary>
-        /// <param name="Name"> The name of the texture you want to get. </param>
+        /// <param name="SpriteState"> The name of the texture you want to get. </param>
         /// <returns>Returns the texture you want.</returns>
-
-
-        static public Texture2D GetTexture(string Name)        // Gets the texture from the dictionary.
+        static public Texture2D GetTexture(string SpriteState)        // Gets the texture from the dictionary.
         {
-            return ContentTextures[Name];
+            return ContentTextures[SpriteState];
         }
 
     }
