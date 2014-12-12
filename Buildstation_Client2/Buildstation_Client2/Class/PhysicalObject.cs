@@ -37,7 +37,7 @@ namespace Buildstation_Client2.Class
         protected int SpriteSizeX = 48; // How large your sprite is on the X plane. Normally 48 pixels.
         protected int SpriteSizeY = 48;
         protected int RotationInDegrees = 0; // How much should it be rotated? Normally 0.
-
+        protected dynamic GraphicsDevice; // Used for setting the sprite.
 
 
 
@@ -57,6 +57,9 @@ namespace Buildstation_Client2.Class
 
         // Actually starting logic.
 
+        /// <summary>
+        /// The nessasary stuff to create an object, always run this last, unless you are inheriting from something that adds it's own initalise method, then use that.
+        /// </summary>
         protected void InitaliseBace()        // Preforms the nesasary actions to create the object.
         {
             if (DoesMove == true)   // Vairous optimatasation things making objects faster (Probably, it does get rid of a whole thread)
@@ -71,48 +74,56 @@ namespace Buildstation_Client2.Class
             }
         }
 
-
+        /// <summary>
+        /// Gets weather it can be passed or not.
+        /// </summary>
+        /// <returns>True if it can be passed, false if not.</returns>
         public bool GetPassableStatus()
         {
             return IsPassable;
         }
 
+        /// <summary>
+        /// If it can be dragged.
+        /// </summary>
+        /// <returns>True if dragable, false if not.</returns>
         public bool GetDragableStatus()
         {
             return IsDragable;
         }
 
+        /// <summary>
+        /// Gets if it is transparent or not.
+        /// </summary>
+        /// <returns>True if transparent, false if not.</returns>
         public bool GetTransparentStatus()
         {
             return IsTransparent;
         }
 
+        /// <summary>
+        /// Gets it's spritestate.
+        /// </summary>
+        /// <returns>Returns the spritestate of the object.</returns>
         public string GetSpriteState()
         {
             return SpriteState;
         }
 
+        /// <summary>
+        /// Gets the rotation of the object
+        /// </summary>
+        /// <returns>Returns the rotation in dagrees.</returns>
         public int GetRotation()
         {
             return RotationInDegrees;
         }
 
-        public int GetXPos()
-        {
-            return XPos;
-        }
+        
 
-        public int GetYPos()
-        {
-            return YPos;
-        }
-
-        public int GetZPos()
-        {
-            return ZPos;
-        }
-
-
+        /// <summary>
+        /// Map update thread, inefficent, resource hog, and needs to be redone in favor of a better way. More than 6 or so slows the program to very few lines per second. Less than 1.
+        /// </summary>
         private void MapUpdateThread()
         {
             while (true) 

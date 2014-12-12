@@ -56,7 +56,7 @@ namespace Buildstation_Client2
             {   // Basically this creates a space tile at every coordnite.
                 CerrentName = SpaceName.GenerateName();
                 // Console.WriteLine("Generated space tile at X: " + XSetting.ToString() + " Y: " + YSetting.ToString());   // Debug info about initalising.
-                PhysicalObjects.Add(CerrentName, new Buildstation_Client2.Class.Objects.Space(CerrentName, XSetting, YSetting));
+                PhysicalObjects.Add(CerrentName, new Buildstation_Client2.Class.Objects.Space(CerrentName, XSetting, YSetting, this.Content));
                 // Console.WriteLine("Creating " + CerrentName + "!");
                 PhysicalObjects[CerrentName].Initalise();
                 XSetting++;
@@ -74,6 +74,8 @@ namespace Buildstation_Client2
             }
 
             FinishedGenerating = true;
+
+            // Console.WriteLine(Content.ServiceProvider + ", " + Content.RootDirectory);
 
             base.Initialize();
         }
@@ -162,7 +164,7 @@ namespace Buildstation_Client2
             // Console.WriteLine(IsAt000 + " Is at 0,0,0!");
 
 
-
+            
 
 
             base.Update(gameTime);

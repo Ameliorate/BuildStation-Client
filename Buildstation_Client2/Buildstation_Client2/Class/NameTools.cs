@@ -13,6 +13,11 @@ namespace Buildstation_Client2.Class
         private string CerrentName;
         private int CerrentNameNumber;  //How many names have been generated basically.
         Random Random = new Random();
+
+        /// <summary>
+        /// Automatically generates a name for objects to use.
+        /// </summary>
+        /// <param name="_ObjectType"></param>
         public NameTools(string _ObjectType)
         {
             ObjectType = _ObjectType;
@@ -21,7 +26,10 @@ namespace Buildstation_Client2.Class
 
 
         
-
+        /// <summary>
+        /// Returns a name for an object to use.
+        /// </summary>
+        /// <returns></returns>
         public string GenerateName()
         {
             CerrentName = ObjectType + "_" + Random.Next(int.MaxValue); // This method doesnt have any methiods of avoiding name collision, but to much work for such a small chance.
