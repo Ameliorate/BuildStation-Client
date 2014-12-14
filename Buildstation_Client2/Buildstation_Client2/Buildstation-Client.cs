@@ -146,6 +146,9 @@ namespace Buildstation_Client2
         private string RenderingObjectState;
         private bool IsCerrentTileEmpty;
         private bool IsCerrentZLevelEmpty;
+        private float RotationInRad;
+        Color color;
+        
         
         /// <summary>
         /// This is called when the game should draw itself.
@@ -169,15 +172,15 @@ namespace Buildstation_Client2
                     RenderingObjectName = Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering];     // Gets what object it is drawing using the object map.
                     
                     RenderingObjectState = PhysicalObjects[RenderingObjectName].GetSpriteState();      // Gets the spritestate of that object.
-                    
                     RenderingObjectBuffer = Buildstation_Client2.Class.ContentLoader.GetTexture(RenderingObjectState);
 
-                    
+                    RotationInRad = PhysicalObjects[RenderingObjectName].GetRotation();
 
-                    XRenderingPixel = XRendering * 48;      // Gets what pixel to draw the tile at.
-                    YRenderingPixel = YRendering * 48;      // Same here.
+                    XRenderingPixel = XRendering * 48 + 24;      // Gets what pixel to draw the tile at.
+                    YRenderingPixel = YRendering * 48 + 24;      // Same here.
 
-                    spriteBatch.Draw(RenderingObjectBuffer, new Rectangle(XRenderingPixel, YRenderingPixel, 48, 48), Color.White);      // Draws the tile at the intended place.
+                    spriteBatch.Draw(RenderingObjectBuffer, new Rectangle(XRenderingPixel, YRenderingPixel, 48, 48), new Rectangle(0, 0, 48, 48), Color.White, RotationInRad, new Vector2(RenderingObjectBuffer.Width / 2, RenderingObjectBuffer.Height / 2), SpriteEffects.None, 1);        // Draws the time at the intended place, now with rotation!
+
 
                     ZRendering++;       // Goes on the the next tile on the Z plane.
 

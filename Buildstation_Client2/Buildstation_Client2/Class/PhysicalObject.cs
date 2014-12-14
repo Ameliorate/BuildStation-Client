@@ -24,7 +24,7 @@ namespace Buildstation_Client2.Class
         protected bool IsPassable; // If you can walk through or on it. For example a floor can be walked on, but you couldnt walk on a wall.
         protected bool IsTransparent; // Can you see through or over it? You can see through a window or a PDA on ther floor, but fou cant see through a wall.
         protected bool IsDragable; // Can you drag it around or push it?
-        protected string[] OtherProperties; // Any other properties of the object. Such as a table would be flat, waist height, and hard. This makes certan actions be able to depend on what an object is like instead of whitelisting certan objects.
+        protected List<string> OtherProperties = new List<string>(); // Any other properties of the object. Such as a table would be flat, waist height, and hard. This makes certan actions be able to depend on what an object is like instead of whitelisting certan objects.
         protected int XPos; // The X possition on a grid. 0 starts at the top left courner. This is normally set automatically.
         protected int YPos; // The Y possition on a grid.
         protected int ZPos;
@@ -36,8 +36,8 @@ namespace Buildstation_Client2.Class
         static public string SpriteState; // The cerrent apearance of the thing. You'll have to assighn an existing texture2d to this.
         protected int SpriteSizeX = 48; // How large your sprite is on the X plane. Normally 48 pixels.
         protected int SpriteSizeY = 48;
-        protected int RotationInDegrees = 0; // How much should it be rotated? Normally 0.
-        protected dynamic GraphicsDevice; // Used for setting the sprite.
+        protected float RotationInRadians = 0; // How much should it be rotated? Normally 0.
+        protected ContentManager GraphicsDevice; // Used for setting the sprite.
 
 
 
@@ -116,9 +116,9 @@ namespace Buildstation_Client2.Class
         /// Gets the rotation of the object
         /// </summary>
         /// <returns>Returns the rotation in dagrees.</returns>
-        public int GetRotation()
+        public float GetRotation()
         {
-            return RotationInDegrees;
+            return RotationInRadians;
         }
 
         
