@@ -53,13 +53,10 @@ namespace Buildstation_Client2
             
             
 
-            while (Generating)  // Yes, I know this doesn't fallow my object spawning class, but I cant figure out how to to make a class into a type.
+            while (Generating)  
             {   // Basically this creates a space tile at every coordnite.
                 CerrentName = Buildstation_Client2.Class.NameTools.GenerateName("Space");
-                // Console.WriteLine("Generated space tile at X: " + XSetting.ToString() + " Y: " + YSetting.ToString());   // Debug info about initalising.
-               Class.Variables.PhysicalObjects.Add(CerrentName, new Buildstation_Client2.Class.Objects.Space(CerrentName, XSetting.ToString(), YSetting.ToString()));
-                // Console.WriteLine("Creating " + CerrentName + "!");
-               Class.Variables.PhysicalObjects[CerrentName].Initalise();
+               Class.ObjectTools.SpawnObject(XSetting.ToString(), YSetting.ToString(), CerrentName, "Space");
                 XSetting++;
                 if (XSetting == 15)
                 {
@@ -73,9 +70,6 @@ namespace Buildstation_Client2
                     }
                 }
             }
-
-            Class.Variables.PhysicalObjects.Add("Foo", new Buildstation_Client2.Class.Objects.ObjectTemplate("Foo", "7", "7"));
-            Class.Variables.PhysicalObjects["Foo"].Initalise();
 
             Class.ObjectTools.SpawnObject("1", "1", "Bar", "ObjectTemplate");
 
