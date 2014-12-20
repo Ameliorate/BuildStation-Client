@@ -107,7 +107,7 @@ namespace Buildstation_Client2.Class
         /// <summary>
         /// Gets the rotation of the object
         /// </summary>
-        /// <returns>Returns the rotation in dagrees.</returns>
+        /// <returns>Returns the rotation in Radians.</returns>
         public float GetRotation()
         {
             return RotationInRadians;

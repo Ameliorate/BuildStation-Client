@@ -83,7 +83,7 @@ namespace Buildstation_Client2
 
             // Console.WriteLine(Content.ServiceProvider + ", " + Content.RootDirectory);
 
-            Console.WriteLine("[Info] Finished Initalising");
+            Console.WriteLine("[Info] Finished Initalising!");
             base.Initialize();
         }
 
