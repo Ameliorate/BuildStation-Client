@@ -63,8 +63,7 @@ namespace Buildstation_Client2.Class
             }
             else
             {
-                // Console.WriteLine("Adding " + ObjectName + " To map array!");
-                Variables.Map[XPos, YPos, ZPos] = ObjectName;
+                Variables.Map[XPos, YPos, ZPos] = ObjectName;   // Adds the object to the map array.
             }
         }
 
@@ -120,6 +119,7 @@ namespace Buildstation_Client2.Class
         /// </summary>
         private void MapUpdateThread()
         {
+            Console.WriteLine("[WARNING] Created a Map Update Thread, these are slow and resource hogs! Dont use these!");
             while (true) 
             {
                 while (ObjectName != String.Empty)

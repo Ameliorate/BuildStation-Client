@@ -16,7 +16,6 @@ namespace Buildstation_Client2.Class.Objects
         /// <param name="_ObjectName">The name the object will refer to itself to on the game map. Use NameTools to generate a name that will avoid collisions.</param>
         /// <param name="X">The X Pos of the object you want to create.</param>
         /// <param name="Y">The Y Pos of the object you want to create.</param>
-        /// <param name="Content">The contentmanager. It should be "this.Content" if your creating this in the main game file, if not than youll need to take "ContentManager Content" as a parameter.</param>
         public ObjectTemplate(string _ObjectName, string X, string Y)  // You must replace the "ObjectTemplate" part with the name of your class.
         {
             XPos = Convert.ToInt32(X);
@@ -32,7 +31,6 @@ namespace Buildstation_Client2.Class.Objects
         /// <param name="X">The X Pos of the object you want to create.</param>
         /// <param name="Y">The Y Pos of the object you want to create.</param>
         /// <param name="Z">The Z Pos of the object you want to create</param>
-        /// <param name="Content">The contentmanager. It should be "this.Content" if your creating this in the main game file, if not than youll need to take "ContentManager Content" as a parameter.</param>
         public ObjectTemplate(string _ObjectName, string X, string Y, string Z) // Same here.
         {
             XPos = Convert.ToInt32(X);
@@ -65,7 +63,9 @@ namespace Buildstation_Client2.Class.Objects
 
         /* Also, in ObjectTools.cs, you have to add these lines, replacing ObjectTemplate  with the name of your tile.
          
-           if (ObjectType == "ObjectTemplate")
+           
+           // Begin new object
+            if (ObjectType == "ObjectTemplate")
             {
                 if (ZPos == "No")
                 {
@@ -76,6 +76,7 @@ namespace Buildstation_Client2.Class.Objects
                     return new Objects.ObjectTemplate(ObjectName, XPos, YPos, ZPos);
                 }
             }
+            // End new object
          
          
          */

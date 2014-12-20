@@ -28,11 +28,11 @@ namespace Buildstation_Client2
         }
 
 
-        int XSetting = 0;
-        int YSetting = 0;
-        string CerrentName;
-        bool Generating = true;
-        bool FinishedGenerating;
+        private int XSetting = 0;
+        private int YSetting = 0;
+        private string CerrentName;
+        private bool Generating = true;
+        public bool FinishedGenerating;     // If any object creates a thread, it can depend on this to tell it when it is okay to start.
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -75,8 +75,6 @@ namespace Buildstation_Client2
 
             FinishedGenerating = true;
 
-            // Console.WriteLine(Content.ServiceProvider + ", " + Content.RootDirectory);
-
             Console.WriteLine("[Info] Finished Initalising!");
             base.Initialize();
         }
@@ -92,10 +90,6 @@ namespace Buildstation_Client2
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
-
-            RenderingObjectBuffer = Content.Load<Texture2D>("Objects/Turf/Space/0");
-            // TODO: use this.Content to load your game content here
         }
 
         /// <summary>
@@ -120,20 +114,10 @@ namespace Buildstation_Client2
             // Allows the game to exit
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
-
-            // TODO: Add your update logic here
-            
-            // IsAt000 = Buildstation_Client2.Class.Variables.Map[0, 0, 0];
-            // Console.WriteLine(IsAt000 + " Is at 0,0,0!");
-
-
-            
-
-
+            // Not much updating actually goes on here, because most of it will be handled in a server.
             base.Update(gameTime);
         }
-        Random Random = new Random();
-        private bool Rendering;
+
         private int XRendering;
         private int YRendering;
         private int ZRendering;
@@ -155,17 +139,12 @@ namespace Buildstation_Client2
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
-
-            // Renderer; Does not work.
-
             spriteBatch.Begin();    // Starts the spritebatch rendering.
 
             if (FinishedGenerating)
             {
-                while (Rendering)
+                while (true)
                 {
-
                     RenderingObjectName = Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering];     // Gets what object it is drawing using the object map.
 
                     RenderingObjectState = Class.Variables.PhysicalObjects[RenderingObjectName].GetSpriteState();      // Gets the spritestate of that object.
@@ -204,7 +183,7 @@ namespace Buildstation_Client2
                                 YRendering = 0;
                                 XRendering = 0;     // Not sure if these are nesasary, but wouldnt make a differance anyway.
                                 ZRendering = 0;
-                                Rendering = false;      // Stops the rendering loop, since it is finished.
+                                break;      // Stops the rendering loop, since it is finished.
                                 
                             }
 
@@ -216,8 +195,7 @@ namespace Buildstation_Client2
             }
 
             spriteBatch.End();
-            Rendering = true;
-            // Thread.Sleep(10000);
+
             base.Draw(gameTime);
             
         }

@@ -57,6 +57,8 @@ namespace Buildstation_Client2.Class
         /// <returns>Returns a raw object to be assigned to the object array after initalision is done.</returns>
         private static object CreateObject(string XPos, string YPos, string ZPos, string ObjectName, string ObjectType)
         {       // WARNING: Ugly code ahead, I do admit it is terrible, but there isn't a better way.
+
+            // Begin new object
             if (ObjectType == "ObjectTemplate")
             {
                 if (ZPos == "No")
@@ -68,7 +70,9 @@ namespace Buildstation_Client2.Class
                     return new Objects.ObjectTemplate(ObjectName, XPos, YPos, ZPos);
                 }
             }
-            
+            // End new object
+
+            // Begin new object
             if (ObjectType == "Space")
             {
                 if (ZPos == "No")
@@ -80,6 +84,7 @@ namespace Buildstation_Client2.Class
                     return new Objects.Space(ObjectName, XPos, YPos, ZPos);
                 }
             }
+            // End new object
 
 
             else
