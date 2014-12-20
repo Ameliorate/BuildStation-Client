@@ -2,13 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;    // Make sure you have all this stuff at the top. It adds a few things you will need.
 
 namespace Buildstation_Client2.Class.Objects
 {
@@ -24,12 +17,11 @@ namespace Buildstation_Client2.Class.Objects
         /// <param name="X">The X Pos of the object you want to create.</param>
         /// <param name="Y">The Y Pos of the object you want to create.</param>
         /// <param name="Content">The contentmanager. It should be "this.Content" if your creating this in the main game file, if not than youll need to take "ContentManager Content" as a parameter.</param>
-        public ObjectTemplate(string _ObjectName, int X, int Y, ContentManager Content)  // You must replace the "ObjectTemplate" part with the name of your class.
+        public ObjectTemplate(string _ObjectName, string X, string Y)  // You must replace the "ObjectTemplate" part with the name of your class.
         {
-            XPos = X;
-            YPos = Y;
-            ObjectName = _ObjectName;
-            GraphicsDevice = Content;   
+            XPos = Convert.ToInt32(X);
+            YPos = Convert.ToInt32(Y);
+            ObjectName = _ObjectName; 
         }
 
         
@@ -41,13 +33,12 @@ namespace Buildstation_Client2.Class.Objects
         /// <param name="Y">The Y Pos of the object you want to create.</param>
         /// <param name="Z">The Z Pos of the object you want to create</param>
         /// <param name="Content">The contentmanager. It should be "this.Content" if your creating this in the main game file, if not than youll need to take "ContentManager Content" as a parameter.</param>
-        public ObjectTemplate(string _ObjectName, int X, int Y, int Z, ContentManager Content) // Same here.
+        public ObjectTemplate(string _ObjectName, string X, string Y, string Z) // Same here.
         {
-            XPos = X;
-            YPos = Y;
-            ZPos = Z;
+            XPos = Convert.ToInt32(X);
+            YPos = Convert.ToInt32(Y);
+            ZPos = Convert.ToInt32(Z);
             ObjectName = _ObjectName;
-            GraphicsDevice = Content;
         }
 
         /// <summary>
@@ -62,15 +53,32 @@ namespace Buildstation_Client2.Class.Objects
             SpriteSizeY = 48;
             ObjectType = "ObjectTemplate"; // The type of the object. Basically what it would normally be called.
 
-            ContentLoader.AddTexture("Wall", "Objects/Wall", GraphicsDevice);       // Accosates the wall spritestate with the wall texture.
+            ContentLoader.AddTexture("Wall", "Objects/Wall");       // Accosates the wall spritestate with the wall texture.
 
             SpriteState = "Wall"; // Sets the sprite to the wall sprite we set earlier.
 
 
 
             InitaliseBace();    // InitaliseBase does a few things relating to rendering and updating position for you. Make sure this is last, as it does vairous things related to stuff you did earlier.
-
-
         }
+
+
+        /* Also, in ObjectTools.cs, you have to add these lines, replacing ObjectTemplate  with the name of your tile.
+         
+           if (ObjectType == "ObjectTemplate")
+            {
+                if (ZPos == "No")
+                {
+                    return new Objects.ObjectTemplate(ObjectName, XPos, YPos);
+                }
+                else
+                {
+                    return new Objects.ObjectTemplate(ObjectName, XPos, YPos, ZPos);
+                }
+            }
+         
+         
+         */
+
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System.Threading;
+using Buildstation_Client2.Class.Objects;
 
 namespace Buildstation_Client2
 {
@@ -30,10 +31,8 @@ namespace Buildstation_Client2
         int XSetting = 0;
         int YSetting = 0;
         string CerrentName;
-        Buildstation_Client2.Class.NameTools SpaceName = new Buildstation_Client2.Class.NameTools("Space");
-        public static Dictionary<string, dynamic> PhysicalObjects = new Dictionary<string, dynamic>();      // A dictionary of objects. Every single object in the game. Probably not optimal, but I cant find another way.
-        private bool FinishedGenerating = false;
-        private bool Generating = true;
+        bool Generating = true;
+        bool FinishedGenerating;
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -50,16 +49,17 @@ namespace Buildstation_Client2
             graphics.PreferredBackBufferHeight = 720;
             graphics.ApplyChanges();
 
-            // PhysicalObjects.Add("Foo", new Buildstation_Client2.Class.Objects.Space("Foo", 0, 0));
-
+            Buildstation_Client2.Class.ContentPasser.GiveContent(Content);      // Alows classes outside of this to do graphics related tasks.
+            
+            
 
             while (Generating)  // Yes, I know this doesn't fallow my object spawning class, but I cant figure out how to to make a class into a type.
             {   // Basically this creates a space tile at every coordnite.
-                CerrentName = SpaceName.GenerateName();
+                CerrentName = Buildstation_Client2.Class.NameTools.GenerateName("Space");
                 // Console.WriteLine("Generated space tile at X: " + XSetting.ToString() + " Y: " + YSetting.ToString());   // Debug info about initalising.
-                PhysicalObjects.Add(CerrentName, new Buildstation_Client2.Class.Objects.Space(CerrentName, XSetting, YSetting, this.Content));
+               Class.Variables.PhysicalObjects.Add(CerrentName, new Buildstation_Client2.Class.Objects.Space(CerrentName, XSetting.ToString(), YSetting.ToString()));
                 // Console.WriteLine("Creating " + CerrentName + "!");
-                PhysicalObjects[CerrentName].Initalise();
+               Class.Variables.PhysicalObjects[CerrentName].Initalise();
                 XSetting++;
                 if (XSetting == 15)
                 {
@@ -73,6 +73,11 @@ namespace Buildstation_Client2
                     }
                 }
             }
+
+            Class.Variables.PhysicalObjects.Add("Foo", new Buildstation_Client2.Class.Objects.ObjectTemplate("Foo", "7", "7"));
+            Class.Variables.PhysicalObjects["Foo"].Initalise();
+
+            Class.ObjectTools.SpawnObject("1", "1", "Bar", "ObjectTemplate");
 
             FinishedGenerating = true;
 
@@ -109,7 +114,6 @@ namespace Buildstation_Client2
         }
 
 
-        string IsAt000;
 
 
         /// <summary>
@@ -147,7 +151,6 @@ namespace Buildstation_Client2
         private bool IsCerrentTileEmpty;
         private bool IsCerrentZLevelEmpty;
         private float RotationInRad;
-        Color color;
         
         
         /// <summary>
@@ -170,11 +173,11 @@ namespace Buildstation_Client2
                 {
 
                     RenderingObjectName = Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering];     // Gets what object it is drawing using the object map.
-                    
-                    RenderingObjectState = PhysicalObjects[RenderingObjectName].GetSpriteState();      // Gets the spritestate of that object.
+
+                    RenderingObjectState = Class.Variables.PhysicalObjects[RenderingObjectName].GetSpriteState();      // Gets the spritestate of that object.
                     RenderingObjectBuffer = Buildstation_Client2.Class.ContentLoader.GetTexture(RenderingObjectState);
 
-                    RotationInRad = PhysicalObjects[RenderingObjectName].GetRotation();
+                    RotationInRad = Class.Variables.PhysicalObjects[RenderingObjectName].GetRotation();
 
                     XRenderingPixel = XRendering * 48 + 24;      // Gets what pixel to draw the tile at.
                     YRenderingPixel = YRendering * 48 + 24;      // Same here.

@@ -1,13 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 using System.Threading;
 
 
@@ -37,7 +30,6 @@ namespace Buildstation_Client2.Class
         protected int SpriteSizeX = 48; // How large your sprite is on the X plane. Normally 48 pixels.
         protected int SpriteSizeY = 48;
         protected float RotationInRadians = 0; // How much should it be rotated? Normally 0.
-        protected ContentManager GraphicsDevice; // Used for setting the sprite.
 
 
 

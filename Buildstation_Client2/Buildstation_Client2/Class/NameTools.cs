@@ -5,32 +5,23 @@ using System.Text;
 
 namespace Buildstation_Client2.Class
 {
-    class NameTools
+    static class NameTools
     {
-        private string ObjectType; 
-        int[] FirstUnusedChar; // Contains the numerical value of the first unused Charactor. Each spot in the array is another charactor used in combonation.
+        private static int[] FirstUnusedChar; // Contains the numerical value of the first unused Charactor. Each spot in the array is another charactor used in combonation.
          // The names of objects are stored like Wall_A, Floor_BC, or Space_DSAGFGHDT.
-        private string CerrentName;
-        private int CerrentNameNumber;  //How many names have been generated basically.
-        Random Random = new Random();
-
-        /// <summary>
-        /// Automatically generates a name for objects to use.
-        /// </summary>
-        /// <param name="_ObjectType"></param>
-        public NameTools(string _ObjectType)
-        {
-            ObjectType = _ObjectType;
-        }
+        private static string CerrentName;
+        private static int CerrentNameNumber;  //How many names have been generated basically.
+        private static Random Random = new Random();
 
 
 
         
         /// <summary>
-        /// Returns a name for an object to use.
+        /// Generates names for objects to use
         /// </summary>
-        /// <returns></returns>
-        public string GenerateName()
+        /// <param name="ObjectType">The type of object you are making. EX: Space or Wall.</param>
+        /// <returns>Returns a name for the object in the form of [Type]_[UOID]</returns>
+        public static string GenerateName(string ObjectType)
         {
             CerrentName = ObjectType + "_" + Random.Next(int.MaxValue); // This method doesnt have any methiods of avoiding name collision, but to much work for such a small chance.
             CerrentNameNumber++;
