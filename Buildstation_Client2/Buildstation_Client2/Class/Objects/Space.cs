@@ -51,7 +51,7 @@ namespace Buildstation_Client2.Class.Objects
         public void Initalise()
         {
             DoesMove = false;
-            IsVaccum = true;        // It is space, so it is a vaccum.
+            LeakPercent = 100;        // It is space, so it leaks 100% of the air there.
             Seed = ObjectName.GetHashCode(); // This will get a random seed that isn't dependant on the system time as much since it is dependant on 1 centeral RNG (Right now. This will change.)
             Random Random = new Random(Seed);
             SpriteNumber = Random.Next(NumberOfSprites);  // Choses what icon is used for this tile.
@@ -70,10 +70,31 @@ namespace Buildstation_Client2.Class.Objects
 
         public override string GetSpriteState()
         {
-            return "Space" + SpriteNumber;
+            return "Space" + SpriteNumber;      
+        }       // For some reason, you need to override the getspritestate method if there is more than 1 possible sprite for the tiletype.
+
+        /// <summary>
+        /// Gets the data nesasary to sync to clients upon initalisation.
+        /// </summary>
+        /// <returns>Returns the data in CSV form.</returns>
+        public override string GetData()
+        {
+            return SpriteNumber.ToString() + "," + RotationInRadians.ToString();        // In this case the rotation and spritenumber are sent to the client.
         }
 
+        private string[] Data; 
 
+        /// <summary>
+        /// Allows you to sync certan values batween client and server.
+        /// </summary>
+        /// <param name="DataInCSV">The data, in CSV format.</param>
+        public override void GiveData(string DataInCSV)
+        {
+            Data = DataInCSV.Split(',');    // Splits the data into an array, for easy interaction.
+
+            SpriteNumber = Convert.ToInt32(Data[0]);
+            RotationInRadians = Convert.ToInt32(Data[1]);
+        }
     }
 }
 

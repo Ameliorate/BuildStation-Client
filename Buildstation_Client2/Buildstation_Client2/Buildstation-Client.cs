@@ -72,7 +72,7 @@ namespace Buildstation_Client2
             }
 
             Class.ObjectTools.SpawnObject("1", "1", "Bar", "ObjectTemplate");
-
+            Class.ObjectTools.SpawnObject("7", "5", "Foo", "ObjectTemplate");
             FinishedGenerating = true;
 
             Console.WriteLine("[Info] Finished Initalising!");
