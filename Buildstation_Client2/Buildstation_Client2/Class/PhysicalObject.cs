@@ -126,7 +126,7 @@ namespace Buildstation_Client2.Class
         /// <summary>
         /// Gets the update data to be sent to clients.
         /// </summary>
-        /// <returns>Returns the data in comma seperated value form.</returns>
+        /// <returns>Returns the data in colin ':' seperated value form.</returns>
         public virtual string GetUpdateData()
         {
             return "";      // There is no data that will ever be sent to the client after initalisation.
@@ -135,10 +135,15 @@ namespace Buildstation_Client2.Class
         /// <summary>
         /// Allows you to sync certan values batween client and server.
         /// </summary>
-        /// <param name="DataInCSV">The data, in CSV format.</param>
+        /// <param name="DataInCSV">The data, in Colin ':' seperated value format.</param>
         public virtual void GiveData(string DataInCSV)
         {
             // Does nothing here, because there is no data that will be given.
+        }
+
+        public virtual void NetUpdate(string DataInCSV)
+        {
+            // Do nothing, since there is no need to update.
         }
 
         /// <summary>

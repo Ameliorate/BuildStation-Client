@@ -101,8 +101,7 @@ namespace Buildstation_Client2
             // TODO: Unload any non ContentManager content here
         }
 
-
-
+        public static bool ExitGameBool = false;
 
         /// <summary>
         /// Allows the game to run logic such as updating the world,
@@ -114,6 +113,10 @@ namespace Buildstation_Client2
             // Allows the game to exit
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
+
+            if (ExitGameBool == true)
+                this.Exit();
+
             // Not much updating actually goes on here, because most of it will be handled in a server.
             base.Update(gameTime);
         }
@@ -199,5 +202,11 @@ namespace Buildstation_Client2
             base.Draw(gameTime);
             
         }
+
+        public static void ExitGame()
+        {
+            Game1.ExitGameBool = true;
+        }
+
     }
 }

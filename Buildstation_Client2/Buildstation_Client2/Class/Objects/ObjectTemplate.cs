@@ -81,5 +81,7 @@ namespace Buildstation_Client2.Class.Objects
          
          */
 
+        // If you want to have data that is synced batween clients, you'd need to implament a few methods. Those aren't covered here.
+
     }
 }

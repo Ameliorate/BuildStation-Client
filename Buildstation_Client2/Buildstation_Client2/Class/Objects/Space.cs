@@ -76,7 +76,7 @@ namespace Buildstation_Client2.Class.Objects
         /// <summary>
         /// Gets the data nesasary to sync to clients upon initalisation.
         /// </summary>
-        /// <returns>Returns the data in CSV form.</returns>
+        /// <returns>Returns the data in Colin ':' seperated value form.</returns>
         public override string GetData()
         {
             return SpriteNumber.ToString() + "," + RotationInRadians.ToString();        // In this case the rotation and spritenumber are sent to the client.
@@ -87,7 +87,7 @@ namespace Buildstation_Client2.Class.Objects
         /// <summary>
         /// Allows you to sync certan values batween client and server.
         /// </summary>
-        /// <param name="DataInCSV">The data, in CSV format.</param>
+        /// <param name="DataInCSV">The data, in Colin ':' seperated value format.</param>
         public override void GiveData(string DataInCSV)
         {
             Data = DataInCSV.Split(',');    // Splits the data into an array, for easy interaction.
