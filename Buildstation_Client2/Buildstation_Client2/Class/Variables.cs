@@ -22,6 +22,7 @@ namespace Buildstation_Client2.Class
         static public char[] AllPossibleCharactors = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' };
         
         public static Dictionary<string, dynamic> PhysicalObjects = new Dictionary<string, dynamic>();      // A dictionary of objects. Every single object in the game. Probably not optimal, but I cant find another way.
+        public static List<string> AllTiles = new List<string>();       // Allows tiles to update every object without scaning through the map array, the disadvantage being that they cant access the tiles in a spific order exept when it was created.
 
         
         static private int XLength;

@@ -58,11 +58,11 @@ namespace Buildstation_Client2.Class
         /// <summary>
         /// Allows you to recive network trafic.
         /// </summary>
-        /// <param name="ThreadName">The name trafic will refer to you as.</param>
+        /// <param name="SorterName">The name trafic will refer to you as.</param>
         /// <param name="NetworkSorter">The reference to you. The best way to do this is to use the keyword "this" by itself.</param>
-        public static void RegisterSorter(string ThreadName, dynamic NetworkSorter)
+        public static void RegisterSorter(string SorterName, dynamic NetworkSorter)
         {
-            NetworkSorters.Add(ThreadName, NetworkSorter);
+            NetworkSorters.Add(SorterName, NetworkSorter);
         }
 
         /// <summary>

@@ -23,6 +23,7 @@ namespace Buildstation_Client2.Class
             CreatedTile.Initalise();            // Initalises it.
                     // Interesting thaught, if an object is created in another thread and the rendering engine tries to render that object, the game will crash.
             Variables.PhysicalObjects.Add(ObjectName, CreatedTile);     // Adds a refrence to the object in the tile dictionary.
+            Variables.AllTiles.Add(ObjectName);     
         }
 
         /// <summary>
@@ -39,6 +40,7 @@ namespace Buildstation_Client2.Class
             CreatedTile.Initalise();            // Initalises it.
             // Interesting thaught, if an object is created in another thread and the rendering engine tries to render that object, the game will crash.
             Variables.PhysicalObjects.Add(ObjectName, CreatedTile);     // Adds a refrence to the object in the tile dictionary.
+            Variables.AllTiles.Add(ObjectName);
         }
 
 
