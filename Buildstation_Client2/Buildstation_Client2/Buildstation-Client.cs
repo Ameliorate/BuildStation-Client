@@ -30,9 +30,9 @@ namespace Buildstation_Client2
 
         private int XSetting = 0;
         private int YSetting = 0;
+        private int ZSetting = 0;
         private string CerrentName;
-        private bool Generating = true;
-        public bool FinishedGenerating;     // If any object creates a thread, it can depend on this to tell it when it is okay to start.
+        private string[] ServerIPPortSplit;
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -50,33 +50,17 @@ namespace Buildstation_Client2
             graphics.ApplyChanges();
 
             Buildstation_Client2.Class.ContentPasser.GiveContent(Content);      // Alows classes outside of this to do graphics related tasks.
-            
-            
 
-            while (Generating)  
-            {   // Basically this creates a space tile at every coordnite.
-                CerrentName = Buildstation_Client2.Class.NameTools.GenerateName("Space");
-               Class.ObjectTools.SpawnObject(XSetting.ToString(), YSetting.ToString(), CerrentName, "Space");
-                XSetting++;
-                if (XSetting == 15)
-                {
-                    YSetting++;
-                    XSetting = 0;
-                    if (YSetting == 15)
-                    {
-                        XSetting = 0;
-                        YSetting = 0;
-                        Generating = false;
-                    }
-                }
-            }
+            Console.Write("Please enter a server to connect to in the format of [ServerIP]:[Port]:");
+            ServerIPPortSplit = Console.ReadLine().Split(':');
+            Class.Variables.ServerIP = ServerIPPortSplit[0];
+            Class.Variables.ServerPort = Convert.ToInt32(ServerIPPortSplit[1]);     // Assigns the server IP and port.
+            Thread NetWorkThread = new Thread(Class.NetworkThread.NetworkSortThread);
 
-            Class.ObjectTools.SpawnObject("1", "1", "Bar", "ObjectTemplate");
-            Class.ObjectTools.SpawnObject("7", "5", "Foo", "ObjectTemplate");
-            FinishedGenerating = true;
+            Class.NetworkThread.SendMessage("GetAll", "0,0");       // Tels the server that it wants a 15*15 chunk of the map placed begining at 0,0.
 
-            Console.WriteLine("[Info] Finished Initalising!");
             base.Initialize();
+            Console.WriteLine("[Info] Finished Initalising!");
         }
 
 
@@ -144,58 +128,57 @@ namespace Buildstation_Client2
 
             spriteBatch.Begin();    // Starts the spritebatch rendering.
 
-            if (FinishedGenerating)
+
+            while (true)
             {
-                while (true)
+                RenderingObjectName = Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering];     // Gets what object it is drawing using the object map.
+
+                RenderingObjectState = Class.Variables.PhysicalObjects[RenderingObjectName].GetSpriteState();      // Gets the spritestate of that object.
+                RenderingObjectBuffer = Buildstation_Client2.Class.ContentLoader.GetTexture(RenderingObjectState);
+
+                RotationInRad = Class.Variables.PhysicalObjects[RenderingObjectName].GetRotation();
+
+                XRenderingPixel = XRendering * 48 + 24;      // Gets what pixel to draw the tile at.
+                YRenderingPixel = YRendering * 48 + 24;      // Same here.
+
+                spriteBatch.Draw(RenderingObjectBuffer, new Rectangle(XRenderingPixel, YRenderingPixel, 48, 48), new Rectangle(0, 0, 48, 48), Color.White, RotationInRad, new Vector2(RenderingObjectBuffer.Width / 2, RenderingObjectBuffer.Height / 2), SpriteEffects.None, 1);        // Draws the time at the intended place, now with rotation!
+
+
+                ZRendering++;       // Goes on the the next tile on the Z plane.
+
+                IsCerrentTileEmpty = string.IsNullOrEmpty(Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering]);    // Checks if the tile is empty.
+                IsCerrentZLevelEmpty = Buildstation_Client2.Class.Variables.IsAnythingInZPlane(ZRendering);     // Checks if there is anything in the cerrent plane.
+
+
+                if (IsCerrentTileEmpty == true) // If there is no tile there, move onto the next tile in the array.
                 {
-                    RenderingObjectName = Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering];     // Gets what object it is drawing using the object map.
 
-                    RenderingObjectState = Class.Variables.PhysicalObjects[RenderingObjectName].GetSpriteState();      // Gets the spritestate of that object.
-                    RenderingObjectBuffer = Buildstation_Client2.Class.ContentLoader.GetTexture(RenderingObjectState);
+                    ZRendering = 0;
+                    XRendering++;       // Moves on to the next tile on the X plane.
+                    IsCerrentTileEmpty = string.IsNullOrEmpty(Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering]);       // Is the tile empty now?
 
-                    RotationInRad = Class.Variables.PhysicalObjects[RenderingObjectName].GetRotation();
-
-                    XRenderingPixel = XRendering * 48 + 24;      // Gets what pixel to draw the tile at.
-                    YRenderingPixel = YRendering * 48 + 24;      // Same here.
-
-                    spriteBatch.Draw(RenderingObjectBuffer, new Rectangle(XRenderingPixel, YRenderingPixel, 48, 48), new Rectangle(0, 0, 48, 48), Color.White, RotationInRad, new Vector2(RenderingObjectBuffer.Width / 2, RenderingObjectBuffer.Height / 2), SpriteEffects.None, 1);        // Draws the time at the intended place, now with rotation!
-
-
-                    ZRendering++;       // Goes on the the next tile on the Z plane.
-
-                    IsCerrentTileEmpty = string.IsNullOrEmpty(Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering]);    // Checks if the tile is empty.
-                    IsCerrentZLevelEmpty = Buildstation_Client2.Class.Variables.IsAnythingInZPlane(ZRendering);     // Checks if there is anything in the cerrent plane.
-
-                    
-                    if (IsCerrentTileEmpty == true) // If there is no tile there, move onto the next tile in the array.
+                    if (IsCerrentTileEmpty == true)       // If there is no tile, move on.
                     {
+                        YRendering++;       // Next tile on the Y plane.
+                        XRendering = 0;
 
-                        ZRendering = 0;
-                        XRendering++;       // Moves on to the next tile on the X plane.
-                        IsCerrentTileEmpty = string.IsNullOrEmpty(Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering]);       // Is the tile empty now?
+                        IsCerrentTileEmpty = string.IsNullOrEmpty(Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering]);    // How about now?
 
-                        if (IsCerrentTileEmpty == true)       // If there is no tile, move on.
+                        if (IsCerrentTileEmpty == true)       // No tile? Move on. Or not, Your actually done.
                         {
-                            YRendering++;       // Next tile on the Y plane.
-                            XRendering = 0;
-
-                            IsCerrentTileEmpty = string.IsNullOrEmpty(Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering]);    // How about now?
-
-                            if (IsCerrentTileEmpty == true)       // No tile? Move on. Or not, Your actually done.
-                            {
-                                YRendering = 0;
-                                XRendering = 0;     // Not sure if these are nesasary, but wouldnt make a differance anyway.
-                                ZRendering = 0;
-                                break;      // Stops the rendering loop, since it is finished.
-                                
-                            }
+                            YRendering = 0;
+                            XRendering = 0;     // Not sure if these are nesasary, but wouldnt make a differance anyway.
+                            ZRendering = 0;
+                            break;      // Stops the rendering loop, since it is finished.
 
                         }
 
                     }
-                 
+
                 }
+
             }
+            
 
             spriteBatch.End();
 

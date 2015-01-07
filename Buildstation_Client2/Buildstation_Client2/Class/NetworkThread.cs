@@ -18,11 +18,11 @@ namespace Buildstation_Client2.Class
         /// </summary>
         /// <param name="ServerIP"></param>
         /// <param name="ServerPort"></param>
-        public static void NetworkSortThread(string ServerIP, int ServerPort)
+        public static void NetworkSortThread()
         {
             // Setting up everything needed for Sending and reciving data.
-            IP = ServerIP;
-            Port = ServerPort;
+            IP = Variables.ServerIP;
+            Port = Variables.ServerPort;
             TcpClient Client = new TcpClient(IP, Port);
             StreamReader ServerGet = new StreamReader(Client.GetStream());
             StreamWriter ServerSend = new StreamWriter(Client.GetStream());

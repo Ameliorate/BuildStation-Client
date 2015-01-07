@@ -23,7 +23,8 @@ namespace Buildstation_Client2.Class
         
         public static Dictionary<string, dynamic> PhysicalObjects = new Dictionary<string, dynamic>();      // A dictionary of objects. Every single object in the game. Probably not optimal, but I cant find another way.
         public static List<string> AllTiles = new List<string>();       // Allows tiles to update every object without scaning through the map array, the disadvantage being that they cant access the tiles in a spific order exept when it was created.
-
+        public static string ServerIP;
+        public static int ServerPort;
         
         static private int XLength;
         static private int YLength;
@@ -33,6 +34,7 @@ namespace Buildstation_Client2.Class
         static private int YPos;
         static private int ZPos;
         static private bool IsTileNotAtPos;
+        
 
         /// <summary>
         /// Checks if there is any tile existing in that plane.
