@@ -7,10 +7,12 @@ namespace Buildstation_Client2.Class
 {
     abstract class NetworkSorter
     {
+        /*
         public NetworkSorter()
         {
             NetworkThread.RegisterSorter("Foo", this);
         }
+        */
 
         protected string[] DataSplit;
         public virtual void NewTrafic(string Data)

@@ -129,6 +129,7 @@
     <Compile Include="Class\Mobile.cs" />
     <Compile Include="Class\NameTools.cs" />
     <Compile Include="Class\NetworkSorter.cs" />
+    <Compile Include="Class\NetworkSorters\FinishedHandler.cs" />
     <Compile Include="Class\NetworkSorters\TilePlacmentHandler.cs" />
     <Compile Include="Class\NetworkSorters\TileUpdateHandler.cs" />
     <Compile Include="Class\NetworkThread.cs" />

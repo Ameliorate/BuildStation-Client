@@ -51,13 +51,21 @@ namespace Buildstation_Client2
 
             Buildstation_Client2.Class.ContentPasser.GiveContent(Content);      // Alows classes outside of this to do graphics related tasks.
 
-            Console.Write("Please enter a server to connect to in the format of [ServerIP]:[Port]:");
-            ServerIPPortSplit = Console.ReadLine().Split(':');
-            Class.Variables.ServerIP = ServerIPPortSplit[0];
-            Class.Variables.ServerPort = Convert.ToInt32(ServerIPPortSplit[1]);     // Assigns the server IP and port.
+
+            // Prepares the networkhandlers. This may end up quite long.
+            Class.NetworkSorters.FinishedHandler FinishedHandler = new Class.NetworkSorters.FinishedHandler();
+            Class.NetworkSorters.TilePlacmentHandler TilePlacementHandler = new Class.NetworkSorters.TilePlacmentHandler();
+            Class.NetworkSorters.TileUpdateHandler TileUpdateHandler = new Class.NetworkSorters.TileUpdateHandler();
+
+            Console.Write("Please enter a server IP to connect to:");
+            Class.Variables.ServerIP = Console.ReadLine();
+            Console.WriteLine("Please enter a port to connect to:");
+            Class.Variables.ServerPort = Convert.ToInt32(Console.ReadLine());     // Assigns the server IP and port.
             Thread NetWorkThread = new Thread(Class.NetworkThread.NetworkSortThread);
 
             Class.NetworkThread.SendMessage("GetAll", "0,0");       // Tels the server that it wants a 15*15 chunk of the map placed begining at 0,0.
+
+            FinishedHandler.WaitUntill("GetAll");
 
             base.Initialize();
             Console.WriteLine("[Info] Finished Initalising!");

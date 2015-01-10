@@ -9,21 +9,13 @@ namespace Buildstation_Client2.Class
 {
     static class NetworkThread
     {
-        private static string IP;
-        private static int Port;
-
-
         /// <summary>
         /// Sorts data incoming from the server and acts apon it.
         /// </summary>
-        /// <param name="ServerIP"></param>
-        /// <param name="ServerPort"></param>
         public static void NetworkSortThread()
         {
             // Setting up everything needed for Sending and reciving data.
-            IP = Variables.ServerIP;
-            Port = Variables.ServerPort;
-            TcpClient Client = new TcpClient(IP, Port);
+            TcpClient Client = new TcpClient(Variables.ServerIP, Variables.ServerPort);
             StreamReader ServerGet = new StreamReader(Client.GetStream());
             StreamWriter ServerSend = new StreamWriter(Client.GetStream());
             string Data;
@@ -47,7 +39,7 @@ namespace Buildstation_Client2.Class
                     NetworkSorters[DataSeperated[0]].NewTrafic(DataSeperated[1]);      // Tells the NetworkSorter that it has new network trafic and gives it the data related to it.
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Game1.ExitGame();
             }
@@ -73,7 +65,7 @@ namespace Buildstation_Client2.Class
         public static void SendMessage(string NetworkSorter, string Data)
         {
             // Setting up everything needed for Sending and reciving data.
-            TcpClient Client = new TcpClient(IP, Port);
+            TcpClient Client = new TcpClient(Variables.ServerIP, Variables.ServerPort);
             StreamWriter ServerSend = new StreamWriter(Client.GetStream());
 
             ServerSend.WriteLine(NetworkSorter + ";" + Data);
