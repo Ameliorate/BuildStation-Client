@@ -36,6 +36,8 @@ namespace Buildstation_Client2.Class
                         break;
                     }
 
+                    Console.WriteLine("Recived packet of sorter " + DataSeperated[0] + " And data " + DataSeperated[1]);
+
                     NetworkSorters[DataSeperated[0]].NewTrafic(DataSeperated[1]);      // Tells the NetworkSorter that it has new network trafic and gives it the data related to it.
                 }
             }
