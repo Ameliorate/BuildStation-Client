@@ -67,6 +67,8 @@ namespace Buildstation_Client2
 
             FinishedHandler.WaitUntill("GetAll");
 
+            // Thread.Sleep(1000);
+
             base.Initialize();
             Console.WriteLine("[Info] Finished Initalising!");
         }

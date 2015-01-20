@@ -54,17 +54,7 @@ namespace Buildstation_Client2.Class
         /// </summary>
         protected void InitaliseBace()        // Preforms the nesasary actions to create the object.
         {
-            
-
-            if (DoesMove == true)   // Vairous optimatasation things making objects faster (Probably, it does get rid of a whole thread)
-            {
-                Thread thread = new Thread(MapUpdateThread);
-                thread.Start();
-            }
-            else
-            {
-                Variables.Map[XPos, YPos, ZPos] = ObjectName;   // Adds the object to the map array.
-            }
+            Variables.Map[XPos, YPos, ZPos] = ObjectName;   // Adds the object to the map array.
         }
 
         /// <summary>

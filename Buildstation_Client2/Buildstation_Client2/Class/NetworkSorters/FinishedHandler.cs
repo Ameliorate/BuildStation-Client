@@ -35,8 +35,15 @@ namespace Buildstation_Client2.Class.NetworkSorters
             }
             catch (ArgumentException) {}
 
-            while (Finished[Condition] == false)
+            while (true)
+            {
                 Thread.Sleep(100);      // This never ends for some reason.
+
+                Console.WriteLine("Looping...");
+
+                if (Finished[Condition] == true)
+                    break;
+            }
             
 
             Finished.Remove(Condition);
