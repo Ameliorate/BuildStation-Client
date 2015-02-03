@@ -37,9 +37,7 @@ namespace Buildstation_Client2.Class.NetworkSorters
 
             while (true)
             {
-                Thread.Sleep(100);      // This never ends for some reason.
-
-                Console.WriteLine("Looping...");
+                Thread.Sleep(100);
 
                 if (Finished[Condition] == true)
                     break;

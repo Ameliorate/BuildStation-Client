@@ -20,30 +20,23 @@ namespace Buildstation_Client2.Class
             StreamWriter ServerSend = new StreamWriter(Client.GetStream());
             string Data;
             string[] DataSeperated;
-            try
-            {
-                ServerSend.WriteLine("Info;Connected");  // Tells the server it's connected, and to send it to the info NetworkSorter. It works in the format [Thread];[Data]. If there is more than 1 peace of data, it can be seperated by commas.
-                ServerSend.Flush();
 
-                while (true)
+
+            while (true)
+            {
+                Data = ServerGet.ReadLine();
+                Console.WriteLine("Recived raw packet of " + Data);
+                DataSeperated = Data.Split(';');
+
+                if (Data == "Sorter;Disconnect")    // Perhaps not nesasary, but I'm doing it anyway.
                 {
-                    Data = ServerGet.ReadLine();
-                    DataSeperated = Data.Split(';');
-
-                    if (Data == "Sorter;Disconnect")    // Perhaps not nesasary, but I'm doing it anyway.
-                    {
-                        Client.Close();
-                        break;
-                    }
-
-                    Console.WriteLine("Recived packet of sorter " + DataSeperated[0] + " And data " + DataSeperated[1]);
-
-                    NetworkSorters[DataSeperated[0]].NewTrafic(DataSeperated[1]);      // Tells the NetworkSorter that it has new network trafic and gives it the data related to it.
+                    Client.Close();
+                    break;
                 }
-            }
-            catch (Exception)
-            {
-                Game1.ExitGame();
+
+                Console.WriteLine("Recived packet of sorter " + DataSeperated[0] + " And data " + DataSeperated[1]);
+
+                NetworkSorters[DataSeperated[0]].NewTrafic(DataSeperated[1]);      // Tells the NetworkSorter that it has new network trafic and gives it the data related to it.
             }
         }
 

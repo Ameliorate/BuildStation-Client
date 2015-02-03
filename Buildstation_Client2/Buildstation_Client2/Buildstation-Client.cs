@@ -32,6 +32,7 @@ namespace Buildstation_Client2
         private int YSetting = 0;
         private int ZSetting = 0;
         private string CerrentName;
+        private string IPPort;
         private string[] ServerIPPortSplit;
 
         /// <summary>
@@ -57,17 +58,22 @@ namespace Buildstation_Client2
             Class.NetworkSorters.TilePlacmentHandler TilePlacementHandler = new Class.NetworkSorters.TilePlacmentHandler();
             Class.NetworkSorters.TileUpdateHandler TileUpdateHandler = new Class.NetworkSorters.TileUpdateHandler();
 
-            Console.Write("Please enter a server IP to connect to:");
-            Class.Variables.ServerIP = Console.ReadLine();
-            Console.WriteLine("Please enter a port to connect to:");
-            Class.Variables.ServerPort = Convert.ToInt32(Console.ReadLine());     // Assigns the server IP and port.
+            Console.Write("Please enter a IP and port of a server to connect to in the form if [IP]:[Port]: ");
+            IPPort = Console.ReadLine();
+
+            if (IPPort == "")
+                IPPort = "127.0.0.1:25565";
+
+            ServerIPPortSplit = IPPort.Split(':');
+
+            Class.Variables.ServerIP = ServerIPPortSplit[0];
+            Class.Variables.ServerPort = Convert.ToInt32(ServerIPPortSplit[1]);
+
             Thread NetWorkThread = new Thread(Class.NetworkThread.NetworkSortThread);
 
             Class.NetworkThread.SendMessage("GetAll", "0,0");       // Tels the server that it wants a 15*15 chunk of the map placed begining at 0,0.
 
             FinishedHandler.WaitUntill("GetAll");
-
-            // Thread.Sleep(1000);
 
             base.Initialize();
             Console.WriteLine("[Info] Finished Initalising!");
