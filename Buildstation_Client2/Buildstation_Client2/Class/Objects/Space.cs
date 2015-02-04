@@ -36,7 +36,7 @@ namespace Buildstation_Client2.Class.Objects
         {
             Position.XPos = Convert.ToInt32(X);
             Position.YPos = Convert.ToInt32(Y);
-            Position.ZPos = Convert.ToInt32(Z);
+            Position.ZPos = Convert.ToUInt32(Z);
             
             ObjectName = _ObjectName;
         }
