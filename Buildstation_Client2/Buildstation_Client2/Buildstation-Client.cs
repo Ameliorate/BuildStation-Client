@@ -147,7 +147,7 @@ namespace Buildstation_Client2
 
             while (true)
             {
-                RenderingObjectName = Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering];     // Gets what object it is drawing using the object map.
+                RenderingObjectName = Buildstation_Client2.Class.Variables.Map[new Class.Coordinate(XRendering, YRendering, ZRendering)];     // Gets what object it is drawing using the object map.
 
                 RenderingObjectState = Class.Variables.PhysicalObjects[RenderingObjectName].GetSpriteState();      // Gets the spritestate of that object.
                 RenderingObjectBuffer = Buildstation_Client2.Class.ContentLoader.GetTexture(RenderingObjectState);
@@ -162,8 +162,7 @@ namespace Buildstation_Client2
 
                 ZRendering++;       // Goes on the the next tile on the Z plane.
 
-                IsCerrentTileEmpty = string.IsNullOrEmpty(Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering]);    // Checks if the tile is empty.
-                IsCerrentZLevelEmpty = Buildstation_Client2.Class.Variables.IsAnythingInZPlane(ZRendering);     // Checks if there is anything in the cerrent plane.
+                IsCerrentTileEmpty = string.IsNullOrEmpty(Buildstation_Client2.Class.Variables.Map[new Class.Coordinate(XRendering, YRendering, ZRendering)]);    // Checks if the tile is empty.
 
 
                 if (IsCerrentTileEmpty == true) // If there is no tile there, move onto the next tile in the array.
@@ -171,14 +170,14 @@ namespace Buildstation_Client2
 
                     ZRendering = 0;
                     XRendering++;       // Moves on to the next tile on the X plane.
-                    IsCerrentTileEmpty = string.IsNullOrEmpty(Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering]);       // Is the tile empty now?
+                    IsCerrentTileEmpty = string.IsNullOrEmpty(Buildstation_Client2.Class.Variables.Map[new Class.Coordinate(XRendering, YRendering, ZRendering)]);       // Is the tile empty now?
 
                     if (IsCerrentTileEmpty == true)       // If there is no tile, move on.
                     {
                         YRendering++;       // Next tile on the Y plane.
                         XRendering = 0;
 
-                        IsCerrentTileEmpty = string.IsNullOrEmpty(Buildstation_Client2.Class.Variables.Map[XRendering, YRendering, ZRendering]);    // How about now?
+                        IsCerrentTileEmpty = string.IsNullOrEmpty(Buildstation_Client2.Class.Variables.Map[new Class.Coordinate(XRendering, YRendering, ZRendering)]);    // How about now?
 
                         if (IsCerrentTileEmpty == true)       // No tile? Move on. Or not, Your actually done.
                         {

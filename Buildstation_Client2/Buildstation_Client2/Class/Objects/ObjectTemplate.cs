@@ -18,8 +18,8 @@ namespace Buildstation_Client2.Class.Objects
         /// <param name="Y">The Y Pos of the object you want to create.</param>
         public ObjectTemplate(string _ObjectName, string X, string Y)  // You must replace the "ObjectTemplate" part with the name of your class.
         {
-            XPos = Convert.ToInt32(X);
-            YPos = Convert.ToInt32(Y);
+            Position.XPos = Convert.ToInt32(X);
+            Position.YPos = Convert.ToInt32(Y);
             ObjectName = _ObjectName; 
         }
 
@@ -33,9 +33,9 @@ namespace Buildstation_Client2.Class.Objects
         /// <param name="Z">The Z Pos of the object you want to create</param>
         public ObjectTemplate(string _ObjectName, string X, string Y, string Z) // Same here.
         {
-            XPos = Convert.ToInt32(X);
-            YPos = Convert.ToInt32(Y);
-            ZPos = Convert.ToInt32(Z);
+            Position.XPos = Convert.ToInt32(X);
+            Position.YPos = Convert.ToInt32(Y);
+            Position.ZPos = Convert.ToInt32(Z);
             ObjectName = _ObjectName;
         }
 

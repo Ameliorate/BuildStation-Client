@@ -126,7 +126,7 @@
   <ItemGroup>
     <Compile Include="Class\ContentLoader.cs" />
     <Compile Include="Class\ContentPasser.cs" />
-    <Compile Include="Class\Mobile.cs" />
+    <Compile Include="Class\Coordinate.cs" />
     <Compile Include="Class\NameTools.cs" />
     <Compile Include="Class\NetworkSorter.cs" />
     <Compile Include="Class\NetworkSorters\FinishedHandler.cs" />
