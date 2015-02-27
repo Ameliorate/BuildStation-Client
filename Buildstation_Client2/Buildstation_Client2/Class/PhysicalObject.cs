@@ -18,7 +18,7 @@ namespace Buildstation_Client2.Class
         public bool IsTransparent; // Can you see through or over it? You can see through a window or a PDA on ther floor, but fou cant see through a wall.
         public bool IsDragable; // Can you drag it around or push it?
         public List<string> OtherProperties = new List<string>(); // Any other properties of the object. Such as a table would be flat, waist height, and hard. This makes certan actions be able to depend on what an object is like instead of whitelisting certan objects.
-        public Class.Coordinate Position = new Coordinate();
+        public Class.Coordinate Position = new Coordinate(0, 0, 0, "default");
         public string ObjectName; // The name of the object. An example would be SpaceX, FloorAB, or WallHFDHYRFDGTRHTG.
         public string ObjectType; // The type of the object. Basically is what it is called. EX: Space, Wall, Computer
 

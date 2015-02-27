@@ -121,18 +121,7 @@ namespace Buildstation_Client2
             base.Update(gameTime);
         }
 
-        private int XRendering;
-        private int YRendering;
-        private int ZRendering;
-        private int XRenderingPixel;
-        private int YRenderingPixel;
-        private string RenderingObjectName;
-        private Texture2D RenderingObjectBuffer;
-        private string RenderingObjectState;
-        private bool IsCerrentTileEmpty;
-        private bool IsCerrentZLevelEmpty;
-        private float RotationInRad;
-        
+
         
         /// <summary>
         /// This is called when the game should draw itself.
@@ -140,60 +129,34 @@ namespace Buildstation_Client2
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            Texture2D drawing;
+            dynamic tile;
+            float rotation;
 
+            GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();    // Starts the spritebatch rendering.
 
-
-            while (true)
-            {
-                RenderingObjectName = Buildstation_Client2.Class.Variables.Map[new Class.Coordinate(XRendering, YRendering, ZRendering)];     // Gets what object it is drawing using the object map.
-
-                RenderingObjectState = Class.Variables.PhysicalObjects[RenderingObjectName].GetSpriteState();      // Gets the spritestate of that object.
-                RenderingObjectBuffer = Buildstation_Client2.Class.ContentLoader.GetTexture(RenderingObjectState);
-
-                RotationInRad = Class.Variables.PhysicalObjects[RenderingObjectName].GetRotation();
-
-                XRenderingPixel = XRendering * 48 + 24;      // Gets what pixel to draw the tile at.
-                YRenderingPixel = YRendering * 48 + 24;      // Same here.
-
-                spriteBatch.Draw(RenderingObjectBuffer, new Rectangle(XRenderingPixel, YRenderingPixel, 48, 48), new Rectangle(0, 0, 48, 48), Color.White, RotationInRad, new Vector2(RenderingObjectBuffer.Width / 2, RenderingObjectBuffer.Height / 2), SpriteEffects.None, 1);        // Draws the time at the intended place, now with rotation!
-
-
-                ZRendering++;       // Goes on the the next tile on the Z plane.
-
-                IsCerrentTileEmpty = string.IsNullOrEmpty(Buildstation_Client2.Class.Variables.Map[new Class.Coordinate(XRendering, YRendering, ZRendering)]);    // Checks if the tile is empty.
-
-
-                if (IsCerrentTileEmpty == true) // If there is no tile there, move onto the next tile in the array.
-                {
-
-                    ZRendering = 0;
-                    XRendering++;       // Moves on to the next tile on the X plane.
-                    IsCerrentTileEmpty = string.IsNullOrEmpty(Buildstation_Client2.Class.Variables.Map[new Class.Coordinate(XRendering, YRendering, ZRendering)]);       // Is the tile empty now?
-
-                    if (IsCerrentTileEmpty == true)       // If there is no tile, move on.
+            for (int x = Class.Variables.RenderCentre.XPos; x < Class.Variables.RenderCentre.XPos + 15; x++)
+                for (int y = Class.Variables.RenderCentre.YPos; y < Class.Variables.RenderCentre.YPos + 15; y++)
+                    while (true)    // Too bad I can't make this a for loop too.
                     {
-                        YRendering++;       // Next tile on the Y plane.
-                        XRendering = 0;
-
-                        IsCerrentTileEmpty = string.IsNullOrEmpty(Buildstation_Client2.Class.Variables.Map[new Class.Coordinate(XRendering, YRendering, ZRendering)]);    // How about now?
-
-                        if (IsCerrentTileEmpty == true)       // No tile? Move on. Or not, Your actually done.
+                        int z = 0;
+                        if (Class.Variables.isEmpty(new Class.Coordinate(x, y, z, Class.Variables.RenderCentre.Level)) && z == 0)
                         {
-                            YRendering = 0;
-                            XRendering = 0;     // Not sure if these are nesasary, but wouldnt make a differance anyway.
-                            ZRendering = 0;
-                            break;      // Stops the rendering loop, since it is finished.
-
+                            Class.NetworkThread.SendMessage("GetTile", x.ToString() + "," + y.ToString() + "," + z.ToString());
                         }
+                        // Do stuff here
+                        tile = Class.Variables.getTile(new Class.Coordinate(x, y, z, Class.Variables.RenderCentre.Level));
+                        drawing = Class.ContentLoader.GetTexture(tile.SpriteState);
+                        rotation = tile.RotationInRadians;
 
+                        spriteBatch.Draw(drawing, new Rectangle(x * 48 + 24, y * 48 + 24, 48, 48), new Rectangle(0, 0, 48, 48), Color.White, rotation, new Vector2(drawing.Width / 2, drawing.Height / 2), SpriteEffects.None, 1);  // I used to understand this, now I just copy paste and fix the errors.
+
+                        // Stop doing stuff here.
+                        z++;
+                        if (Class.Variables.isEmpty(new Class.Coordinate(x, y, z, Class.Variables.RenderCentre.Level)))
+                            break;
                     }
-
-                }
-
-            }
-            
 
             spriteBatch.End();
 

@@ -25,5 +25,44 @@ namespace Buildstation_Client2.Class
 
         public static string ServerIP;
         public static int ServerPort;
+
+        public static Coordinate RenderCentre = new Coordinate(0, 0, 0, "default");
+
+        /// <summary>
+        /// Checks if a tile is empty
+        /// </summary>
+        /// <param name="location">The location of that tile</param>
+        /// <returns></returns>
+        public static bool isEmpty(Coordinate location)
+        {
+            bool keyNotFound = false;
+            try
+            {
+                string foo = Map[location];
+            }
+            catch (KeyNotFoundException)
+            {
+                keyNotFound = true;
+            }
+
+            if (keyNotFound == false)
+                return true;
+            else
+                return false;
+        }
+
+        public static dynamic getTile(Coordinate location)
+        {
+            try
+            {
+                return PhysicalObjects[Map[location]];
+            }
+            catch (KeyNotFoundException)
+            {
+                NetworkThread.SendMessage("GetTile", location.XPos.ToString() + "," + location.YPos.ToString() + "," + location.ZPos.ToString());
+            }
+
+            return PhysicalObjects[Map[location]];
+        }
     }
 }
