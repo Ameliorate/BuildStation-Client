@@ -23,12 +23,7 @@ namespace Buildstation_Client2.Class
         public string ObjectType; // The type of the object. Basically is what it is called. EX: Space, Wall, Computer
 
         // What the object looks like. Affects things durring rendertime.
-        public string SpriteState; // The cerrent apearance of the thing. You'll have to assighn an existing texture2d to this.
-        public int SpriteSizeX = 48; // How large your sprite is on the X plane. Normally 48 pixels.
-        public int SpriteSizeY = 48;
-        public float RotationInRadians = 0; // How much should it be rotated? Normally 0.
-
-
+        public Spritestate SpriteState;
 
         // Varibles used for the map updating code.
         private Coordinate OldPosition = new Coordinate();

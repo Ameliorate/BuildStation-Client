@@ -54,10 +54,10 @@ namespace Buildstation_Client2.Class.Objects
             Seed = ObjectName.GetHashCode(); // This will get a random seed that isn't dependant on the system time as much since it is dependant on 1 centeral RNG (Right now. This will change.)
             Random Random = new Random(Seed);
             SpriteNumber = Random.Next(NumberOfSprites);  // Choses what icon is used for this tile.
-            SpriteState = "Space" + SpriteNumber.ToString();                      // Sets the sprite to that icon.
+            SpriteState.Sprite = "Space" + SpriteNumber.ToString();                      // Sets the sprite to that icon.
             ContentLoader.AddTexture("Space" + SpriteNumber, "Objects/Turf/Space/" + SpriteNumber);
             ZeroToThree = Random.Next(4);
-            RotationInRadians = ZeroToThree * (float)1.57079633; // Creates 4 varations of each sprite by rotating them, reducing common patterns.
+            SpriteState.Rotation = ZeroToThree * (float)1.57079633; // Creates 4 varations of each sprite by rotating them, reducing common patterns.
             
 
             OtherProperties.Remove("footheight");
@@ -73,7 +73,7 @@ namespace Buildstation_Client2.Class.Objects
         /// <returns>Returns the data in Colin ':' seperated value form.</returns>
         public override string GetData()
         {
-            return SpriteNumber.ToString() + "," + RotationInRadians.ToString();        // In this case the rotation and spritenumber are sent to the client.
+            return SpriteNumber.ToString() + "," + SpriteState.Rotation.ToString();        // In this case the rotation and spritenumber are sent to the client.
         }
 
         private string[] Data; 
@@ -87,7 +87,7 @@ namespace Buildstation_Client2.Class.Objects
             Data = DataInCSV.Split(',');    // Splits the data into an array, for easy interaction.
 
             SpriteNumber = Convert.ToInt32(Data[0]);
-            RotationInRadians = Convert.ToInt32(Data[1]);
+            SpriteState.Rotation = Convert.ToInt32(Data[1]);
         }
     }
 }

@@ -147,8 +147,8 @@ namespace Buildstation_Client2
                         }
                         // Do stuff here
                         tile = Class.Variables.getTile(new Class.Coordinate(x, y, z, Class.Variables.RenderCentre.Level));
-                        drawing = Class.ContentLoader.GetTexture(tile.SpriteState);
-                        rotation = tile.RotationInRadians;
+                        drawing = Class.ContentLoader.GetTexture(tile.SpriteState.Sprite);
+                        rotation = tile.SpriteState.Rotation;
 
                         spriteBatch.Draw(drawing, new Rectangle(x * 48 + 24, y * 48 + 24, 48, 48), new Rectangle(0, 0, 48, 48), Color.White, rotation, new Vector2(drawing.Width / 2, drawing.Height / 2), SpriteEffects.None, 1);  // I used to understand this, now I just copy paste and fix the errors.
 

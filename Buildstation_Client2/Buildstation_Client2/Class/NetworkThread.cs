@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace Buildstation_Client2.Class
 {
@@ -60,7 +61,17 @@ namespace Buildstation_Client2.Class
         public static void SendMessage(string NetworkSorter, string Data)
         {
             // Setting up everything needed for Sending and reciving data.
-            TcpClient Client = new TcpClient(Variables.ServerIP, Variables.ServerPort);
+            TcpClient Client = null;
+            try
+            {
+                Client = new TcpClient(Variables.ServerIP, Variables.ServerPort);
+            }
+            catch
+            {
+                Console.WriteLine("[Error] Server refused connection. Exiting...");
+                Thread.Sleep(3000);
+                Game1.ExitGame();
+            }
             StreamWriter ServerSend = new StreamWriter(Client.GetStream());
 
             ServerSend.WriteLine(NetworkSorter + ";" + Data);
